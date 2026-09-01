@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بيت الحديد | نظام إدارة الجيم</title>
+    <title>جيم الفرسان</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/JsBarcode/3.11.5/JsBarcode.all.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,7 +78,6 @@
 
         .tab-panel.active {
             display: block;
-            animation: fadeIn .28s ease-out;
         }
 
         .navlink.active {
@@ -126,120 +125,6 @@
             animation: pop .18s ease-out;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes dropdownIn {
-            from {
-                opacity: 0;
-                transform: translateY(-8px) scale(.97);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes toastIn {
-            from {
-                opacity: 0;
-                transform: translateY(-14px) scale(.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes pulseGlow {
-
-            0%,
-            100% {
-                box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 35%, transparent);
-            }
-
-            50% {
-                box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 0%, transparent);
-            }
-        }
-
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: calc(100% + 8px);
-            z-index: 50;
-        }
-
-        .dropdown-menu.open {
-            display: block;
-            animation: dropdownIn .16s ease-out;
-        }
-
-        .toast-item {
-            animation: toastIn .22s cubic-bezier(.2, .9, .3, 1.2);
-            transition: opacity .3s ease, transform .3s ease;
-        }
-
-        button {
-            transition: transform .12s ease, background .15s ease, box-shadow .15s ease, opacity .15s ease;
-        }
-
-        button:active {
-            transform: scale(.96);
-        }
-
-        .card-hover {
-            transition: transform .18s ease, box-shadow .18s ease;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, .12);
-        }
-
-        .login-card {
-            transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-        }
-
-        .login-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, .18);
-            border-color: var(--accent) !important;
-        }
-
-        .navlink {
-            transition: background .15s ease, transform .15s ease;
-        }
-
-        .navlink:hover {
-            transform: translateY(-1px);
-        }
-
-        .spinner {
-            animation: spin .7s linear infinite;
-        }
-
-        .glow {
-            animation: pulseGlow 2s ease-in-out infinite;
-        }
-
         @media print {
             body * {
                 visibility: hidden;
@@ -262,423 +147,482 @@
 
 <body class="dark">
 
-    <!-- ============ LOGIN SCREEN ============ -->
-    <div id="loginScreen" class="min-h-screen flex items-center justify-center p-6">
-        <div class="w-full max-w-3xl">
-            <div class="text-center mb-8 pop">
-                <div class="w-16 h-16 mx-auto rounded-2xl flex items-center justify-center font-display font-black text-2xl mb-3"
-                    style="background:var(--accent); color:var(--accent-ink);">ح</div>
-                <h1 class="font-display font-extrabold text-3xl">بيت الحديد</h1>
-                <p class="text-sm mt-1" style="color:var(--text-muted);">اختر اسمك لتسجيل الدخول إلى النظام</p>
-            </div>
-            <div id="loginEmployeesGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-4"></div>
-            <div id="loginEmptyState" class="hidden text-center py-10 rounded-2xl mt-4"
-                style="background:var(--surface); border:1px dashed var(--border); color:var(--text-muted);">
-                لا يوجد موظفون نشطون. من فضلك أضف موظفًا أولًا.
-            </div>
-        </div>
-    </div>
+    <div class="min-h-screen flex">
 
-    <!-- ============ APP ROOT ============ -->
-    <div id="appRoot" class="hidden min-h-screen">
-
-        <!-- Top Bar -->
-        <header class="sticky top-0 z-30 backdrop-blur border-b"
-            style="background:color-mix(in srgb, var(--bg) 92%, transparent); border-color:var(--border);">
-            <div class="px-4 md:px-6 py-3 flex items-center justify-between gap-3 flex-wrap">
-                <div class="flex items-center gap-4 flex-wrap">
-                    <div class="flex items-center gap-2">
-                        <div class="w-9 h-9 rounded-xl flex items-center justify-center font-display font-black"
-                            style="background:var(--accent); color:var(--accent-ink);">ح</div>
-                        <div class="font-display font-extrabold text-lg hidden sm:block">بيت الحديد</div>
-                    </div>
-                    <nav id="topNav" class="flex items-center gap-1 relative flex-wrap"></nav>
+        <!-- Sidebar -->
+        <aside class="w-64 shrink-0 h-screen sticky top-0 flex flex-col border-l"
+            style="background:var(--surface); border-color:var(--border);">
+            <div class="px-5 py-6 flex items-center gap-3 border-b" style="border-color:var(--border);">
+                <div class="w-11 h-11 rounded-2xl flex items-center justify-center font-display font-black text-lg"
+                    style="background:var(--accent); color:var(--accent-ink);">الفرسان</div>
+                <div>
+                    <div class="font-display font-extrabold text-lg leading-tight">جيم الفرسان</div>
+                    <div class="text-xs" style="color:var(--text-muted);">نظام إدارة الجيم</div>
                 </div>
-                <div class="flex items-center gap-2">
-                    <div id="shiftBadge" class="hidden lg:block text-xs px-3 py-1.5 rounded-lg font-bold"></div>
-                    <div id="clock" class="hidden lg:block text-xs px-3 py-1.5 rounded-lg"
+            </div>
+
+            <nav class="flex-1 px-3 py-4 space-y-1 text-sm">
+                <button data-page="dashboard"
+                    class="navlink active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="9" rx="1.5" />
+                        <rect x="14" y="3" width="7" height="5" rx="1.5" />
+                        <rect x="14" y="12" width="7" height="9" rx="1.5" />
+                        <rect x="3" y="16" width="7" height="5" rx="1.5" />
+                    </svg>
+                    لوحة التحكم
+                </button>
+                <button data-page="attendance"
+                    class="navlink w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="5" width="18" height="14" rx="2" />
+                        <path d="M7 3v4M17 3v4M3 10h18" />
+                        <path d="M7 14l2 2 4-4" />
+                    </svg>
+                    تسجيل الحضور
+                </button>
+                <button data-page="members"
+                    class="navlink w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="9" cy="8" r="3.2" />
+                        <path d="M2.5 20c0-3.5 2.9-6 6.5-6s6.5 2.5 6.5 6" />
+                        <circle cx="18" cy="8" r="2.6" />
+                        <path d="M16.5 14.2c2.7.4 4.5 2.6 4.5 5.8" />
+                    </svg>
+                    الأعضاء
+                </button>
+                <button data-page="plans"
+                    class="navlink w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19V6a1 1 0 0 1 1-1h9l6 6v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z" />
+                        <path d="M14 5v5h5" />
+                        <path d="M8 13h8M8 16.5h5" />
+                    </svg>
+                    الاشتراكات والخطط
+                </button>
+                <button data-page="referrals"
+                    class="navlink w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 8v6M23 11h-6" />
+                        <circle cx="9" cy="8" r="3.2" />
+                        <path d="M2.5 20c0-3.5 2.9-6 6.5-6s6.5 2.5 6.5 6" />
+                    </svg>
+                    عروض الأصحاب
+                </button>
+                <button data-page="store"
+                    class="navlink w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 7l1.5-3h15L21 7" />
+                        <path d="M3 7h18v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7Z" />
+                        <path d="M8 11a4 4 0 0 0 8 0" />
+                    </svg>
+                    المتجر والمكملات
+                </button>
+                <div class="pt-3 pb-1 px-3 text-xs font-bold" style="color:var(--text-muted);">الإدارة والحسابات</div>
+                <button data-page="employees"
+                    class="navlink w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="4" rx="1" />
+                        <path d="M5 8v11a1 1 0 0 0 1 1h4V8M19 8v11a1 1 0 0 1-1 1h-4V8" />
+                        <path d="M10 13h4" />
+                    </svg>
+                    الموظفين والشيفتات
+                </button>
+                <button data-page="cashier"
+                    class="navlink w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2.5" y="6" width="19" height="13" rx="2" />
+                        <circle cx="12" cy="12.5" r="3" />
+                        <path d="M6 6V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1" />
+                    </svg>
+                    الخزينة واستلام النقدية
+                </button>
+                <button data-page="reports"
+                    class="navlink w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 20V10M11 20V4M18 20v-7" />
+                    </svg>
+                    التقارير المالية
+                </button>
+                <button data-page="settings"
+                    class="navlink w-full flex items-center gap-3 px-3 py-2.5 rounded-xl font-bold transition">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M19.4 13.5a7.6 7.6 0 0 0 0-3l2-1.5-2-3.4-2.3.9a7.7 7.7 0 0 0-2.6-1.5L14 2.5h-4l-.5 2.5a7.7 7.7 0 0 0-2.6 1.5l-2.3-.9-2 3.4 2 1.5a7.6 7.6 0 0 0 0 3l-2 1.5 2 3.4 2.3-.9c.77.65 1.65 1.16 2.6 1.5l.5 2.5h4l.5-2.5a7.7 7.7 0 0 0 2.6-1.5l2.3.9 2-3.4-2-1.5Z" />
+                    </svg>
+                    الإعدادات
+                </button>
+            </nav>
+
+            <div class="px-4 py-4 border-t text-xs" style="border-color:var(--border); color:var(--text-muted);">
+                نسخة تجريبية محلية · بياناتك محفوظة على جهازك فقط
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <div class="flex-1 min-w-0">
+            <!-- Topbar -->
+            <header class="sticky top-0 z-20 backdrop-blur border-b px-6 py-4 flex items-center justify-between gap-4"
+                style="background:color-mix(in srgb, var(--bg) 88%, transparent); border-color:var(--border);">
+                <div>
+                    <h1 id="pageTitle" class="font-display font-extrabold text-2xl">لوحة التحكم</h1>
+                    <div id="pageSub" class="text-sm" style="color:var(--text-muted);"></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div id="shiftBadge" class="hidden md:block text-sm px-3 py-1.5 rounded-lg font-bold"></div>
+                    <div id="clock" class="hidden md:block text-sm px-3 py-1.5 rounded-lg"
                         style="background:var(--surface-2); color:var(--text-muted);"></div>
-                    <button id="themeToggle" class="w-9 h-9 rounded-xl flex items-center justify-center"
+                    <button id="themeToggle" class="w-10 h-10 rounded-xl flex items-center justify-center"
                         style="background:var(--surface-2); border:1px solid var(--border);"></button>
-                    <div class="relative">
-                        <button onclick="toggleDropdown('userMenu')"
-                            class="flex items-center gap-2 px-3 py-1.5 rounded-xl font-bold text-sm"
-                            style="background:var(--surface-2); border:1px solid var(--border);">
-                            <span id="currentUserName">--</span>
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M6 9l6 6 6-6" />
-                            </svg>
-                        </button>
-                        <div id="userMenu" class="dropdown-menu left-0 w-40 rounded-xl p-1.5"
-                            style="background:var(--surface); border:1px solid var(--border); box-shadow:0 12px 28px rgba(0,0,0,.18);">
-                            <div id="currentUserRole" class="px-3 py-2 text-xs font-bold"
-                                style="color:var(--text-muted);"></div>
-                            <button onclick="logout()" class="w-full text-right px-3 py-2 rounded-lg text-sm font-bold"
-                                style="color:var(--danger);" onmouseover="this.style.background='var(--danger-soft)'"
-                                onmouseout="this.style.background='transparent'">تسجيل الخروج</button>
+                </div>
+            </header>
+
+            <main class="p-6">
+
+                <!-- DASHBOARD -->
+                <section id="page-dashboard" class="tab-panel active space-y-6">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <div class="text-xs font-bold" style="color:var(--text-muted);">إجمالي الأعضاء</div>
+                            <div id="statMembers" class="font-display text-3xl font-black mt-2">0</div>
+                        </div>
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <div class="text-xs font-bold" style="color:var(--text-muted);">حضور اليوم</div>
+                            <div id="statToday" class="font-display text-3xl font-black mt-2"
+                                style="color:var(--teal);">0</div>
+                        </div>
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <div class="text-xs font-bold" style="color:var(--text-muted);">اشتراكات تنتهي خلال 7 أيام
+                            </div>
+                            <div id="statExpiring" class="font-display text-3xl font-black mt-2"
+                                style="color:var(--danger);">0</div>
+                        </div>
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <div class="text-xs font-bold" style="color:var(--text-muted);">مبيعات اليوم</div>
+                            <div id="statSales" class="font-display text-3xl font-black mt-2"
+                                style="color:var(--accent);">0 ج.م</div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </header>
 
-        <main class="p-4 md:p-6">
-
-            <div class="mb-4">
-                <h1 id="pageTitle" class="font-display font-extrabold text-2xl">لوحة التحكم</h1>
-                <div id="pageSub" class="text-sm" style="color:var(--text-muted);"></div>
-            </div>
-
-            <!-- DASHBOARD -->
-            <section id="page-dashboard" class="tab-panel active space-y-6">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="card-hover rounded-2xl p-5"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <div class="text-xs font-bold" style="color:var(--text-muted);">إجمالي الأعضاء</div>
-                        <div id="statMembers" class="font-display text-3xl font-black mt-2">0</div>
-                    </div>
-                    <div class="card-hover rounded-2xl p-5"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <div class="text-xs font-bold" style="color:var(--text-muted);">حضور اليوم</div>
-                        <div id="statToday" class="font-display text-3xl font-black mt-2" style="color:var(--teal);">0
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                        <div class="lg:col-span-2 rounded-2xl p-5"
+                            style="background:var(--surface); border:1px solid var(--border);">
+                            <h3 class="font-display font-bold text-lg mb-3">آخر عمليات الحضور</h3>
+                            <div id="recentAttendance" class="space-y-2 text-sm"></div>
+                        </div>
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <h3 class="font-display font-bold text-lg mb-3">مخزون منخفض</h3>
+                            <div id="lowStock" class="space-y-2 text-sm"></div>
                         </div>
                     </div>
-                    <div class="card-hover rounded-2xl p-5"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <div class="text-xs font-bold" style="color:var(--text-muted);">اشتراكات تنتهي خلال 7 أيام</div>
-                        <div id="statExpiring" class="font-display text-3xl font-black mt-2"
-                            style="color:var(--danger);">0</div>
-                    </div>
-                    <div class="card-hover rounded-2xl p-5"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <div class="text-xs font-bold" style="color:var(--text-muted);">مبيعات اليوم</div>
-                        <div id="statSales" class="font-display text-3xl font-black mt-2" style="color:var(--accent);">0
-                            ج.م</div>
-                    </div>
-                </div>
+                </section>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-                    <div class="lg:col-span-2 rounded-2xl p-5"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <h3 class="font-display font-bold text-lg mb-3">آخر عمليات الحضور</h3>
-                        <div id="recentAttendance" class="space-y-2 text-sm"></div>
+                <!-- ATTENDANCE -->
+                <section id="page-attendance" class="tab-panel space-y-5">
+                    <div class="rounded-2xl p-6" style="background:var(--surface); border:1px solid var(--border);">
+                        <label class="text-sm font-bold block mb-2">امسح الكارت / الباركود، أو أدخل الكود يدويًا</label>
+                        <div class="flex gap-3">
+                            <input id="scanInput" autofocus
+                                placeholder="اضغط هنا ثم مرر الباركود أو اكتب الكود واضغط Enter"
+                                class="flex-1 rounded-xl px-4 py-3 text-lg font-mono">
+                            <button onclick="doCheckin()" class="px-6 rounded-xl font-bold"
+                                style="background:var(--accent); color:var(--accent-ink);">تسجيل</button>
+                        </div>
+                        <div id="checkinResult" class="mt-5"></div>
                     </div>
+
                     <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
-                        <h3 class="font-display font-bold text-lg mb-3">مخزون منخفض</h3>
-                        <div id="lowStock" class="space-y-2 text-sm"></div>
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-display font-bold text-lg">سجل الحضور اليوم</h3>
+                            <span id="todayCount" class="text-sm" style="color:var(--text-muted);"></span>
+                        </div>
+                        <div id="todayLog" class="space-y-2 text-sm"></div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- ATTENDANCE -->
-            <section id="page-attendance" class="tab-panel space-y-5">
-                <div class="rounded-2xl p-6" style="background:var(--surface); border:1px solid var(--border);">
-                    <label class="text-sm font-bold block mb-2">امسح الكارت / الباركود، أو أدخل الكود يدويًا</label>
-                    <div class="flex gap-3">
-                        <input id="scanInput" autofocus placeholder="اضغط هنا ثم مرر الباركود أو اكتب الكود واضغط Enter"
-                            class="flex-1 rounded-xl px-4 py-3 text-lg font-mono">
-                        <button onclick="doCheckin()" class="px-6 rounded-xl font-bold"
-                            style="background:var(--accent); color:var(--accent-ink);">تسجيل</button>
+                <!-- MEMBERS -->
+                <section id="page-members" class="tab-panel space-y-5">
+                    <div class="flex flex-wrap items-center gap-3 justify-between">
+                        <input id="memberSearch" placeholder="ابحث بالاسم أو الهاتف أو الكود..."
+                            class="rounded-xl px-4 py-2.5 w-72 max-w-full">
+                        <button onclick="openMemberModal()" class="px-5 py-2.5 rounded-xl font-bold"
+                            style="background:var(--accent); color:var(--accent-ink);">+ إضافة عضو جديد</button>
                     </div>
-                    <div id="checkinResult" class="mt-5"></div>
-                </div>
-
-                <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="font-display font-bold text-lg">سجل الحضور اليوم</h3>
-                        <span id="todayCount" class="text-sm" style="color:var(--text-muted);"></span>
-                    </div>
-                    <div id="todayLog" class="space-y-2 text-sm"></div>
-                </div>
-            </section>
-
-            <!-- MEMBERS -->
-            <section id="page-members" class="tab-panel space-y-5">
-                <div class="flex flex-wrap items-center gap-3 justify-between">
-                    <input id="memberSearch" placeholder="ابحث بالاسم أو الهاتف أو الكود..."
-                        class="rounded-xl px-4 py-2.5 w-72 max-w-full">
-                    <button onclick="openMemberModal()" class="px-5 py-2.5 rounded-xl font-bold"
-                        style="background:var(--accent); color:var(--accent-ink);">+ إضافة عضو جديد</button>
-                </div>
-                <div class="rounded-2xl overflow-hidden"
-                    style="background:var(--surface); border:1px solid var(--border);">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr style="background:var(--surface-2); color:var(--text-muted);">
-                                <th class="text-right py-3 px-4 font-bold">العضو</th>
-                                <th class="text-right py-3 px-4 font-bold">الكود</th>
-                                <th class="text-right py-3 px-4 font-bold">الخطة</th>
-                                <th class="text-right py-3 px-4 font-bold">الحالة</th>
-                                <th class="text-right py-3 px-4 font-bold">إجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody id="membersTable"></tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- PLANS -->
-            <section id="page-plans" class="tab-panel space-y-5">
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" id="planPricesGrid"></div>
-                <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
-                    <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-                        <h3 class="font-display font-bold text-lg">حالة اشتراكات الأعضاء</h3>
-                        <input id="plansSearch"
-                            placeholder="ابحث بالاسم أو الهاتف أو الكود للتجديد أو تحديث البيانات..."
-                            class="rounded-xl px-4 py-2.5 w-80 max-w-full text-sm">
-                    </div>
-                    <div class="overflow-x-auto">
+                    <div class="rounded-2xl overflow-hidden"
+                        style="background:var(--surface); border:1px solid var(--border);">
                         <table class="w-full text-sm">
                             <thead>
                                 <tr style="background:var(--surface-2); color:var(--text-muted);">
                                     <th class="text-right py-3 px-4 font-bold">العضو</th>
-                                    <th class="text-right py-3 px-4 font-bold">الخطة الحالية</th>
-                                    <th class="text-right py-3 px-4 font-bold">تنتهي في / المتبقي</th>
-                                    <th class="text-right py-3 px-4 font-bold">إجراء</th>
+                                    <th class="text-right py-3 px-4 font-bold">الكود</th>
+                                    <th class="text-right py-3 px-4 font-bold">الخطة</th>
+                                    <th class="text-right py-3 px-4 font-bold">الحالة</th>
+                                    <th class="text-right py-3 px-4 font-bold">إجراءات</th>
                                 </tr>
                             </thead>
-                            <tbody id="plansTable"></tbody>
+                            <tbody id="membersTable"></tbody>
                         </table>
                     </div>
-                    <div id="plansEmptyState" class="hidden text-center py-8 text-sm" style="color:var(--text-muted);">
-                        لا يوجد أعضاء مطابقون لبحثك</div>
-                </div>
-            </section>
+                </section>
 
-            <!-- REFERRALS -->
-            <section id="page-referrals" class="tab-panel space-y-5">
-                <div class="rounded-2xl p-6" style="background:var(--surface); border:1px solid var(--border);">
-                    <h3 class="font-display font-bold text-lg mb-1">عرض دعوة الأصحاب</h3>
-                    <p class="text-sm mb-4" style="color:var(--text-muted);">اختر العضو الحالي (الداعي) والصديق الجديد
-                        أو الحالي (المدعو) لتفعيل العرض دفعة واحدة.</p>
-                    <div class="grid md:grid-cols-3 gap-3 items-end">
-                        <div>
-                            <label class="text-xs font-bold block mb-1">الداعي (عضو حالي)</label>
-                            <select id="refReferrer" class="w-full rounded-xl px-3 py-2.5"></select>
+                <!-- PLANS -->
+                <section id="page-plans" class="tab-panel space-y-5">
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3" id="planPricesGrid"></div>
+                    <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-display font-bold text-lg">حالة اشتراكات الأعضاء</h3>
                         </div>
-                        <div>
-                            <label class="text-xs font-bold block mb-1">المدعو (صديقه)</label>
-                            <select id="refReferred" class="w-full rounded-xl px-3 py-2.5"></select>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead>
+                                    <tr style="background:var(--surface-2); color:var(--text-muted);">
+                                        <th class="text-right py-3 px-4 font-bold">العضو</th>
+                                        <th class="text-right py-3 px-4 font-bold">الخطة الحالية</th>
+                                        <th class="text-right py-3 px-4 font-bold">تنتهي في / المتبقي</th>
+                                        <th class="text-right py-3 px-4 font-bold">إجراء</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="plansTable"></tbody>
+                            </table>
                         </div>
-                        <button onclick="activateReferral()" class="rounded-xl px-4 py-2.5 font-bold"
-                            style="background:var(--teal); color:#fff;">تفعيل العرض</button>
                     </div>
-                    <div id="referralOfferText" class="mt-4 text-sm rounded-xl p-3"
-                        style="background:var(--surface-2); color:var(--text-muted);"></div>
-                </div>
+                </section>
 
-                <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
-                    <h3 class="font-display font-bold text-lg mb-3">سجل عروض الأصحاب</h3>
-                    <div id="referralsLog" class="space-y-2 text-sm"></div>
-                </div>
-            </section>
-
-            <!-- STORE -->
-            <section id="page-store" class="tab-panel">
-                <div class="grid lg:grid-cols-3 gap-5">
-                    <div class="lg:col-span-2 space-y-4">
-                        <div class="flex flex-wrap items-center gap-3 justify-between">
-                            <input id="productSearch" placeholder="ابحث عن منتج أو مكمل غذائي..."
-                                class="rounded-xl px-4 py-2.5 w-64 max-w-full">
-                            <button onclick="openProductModal()" class="px-5 py-2.5 rounded-xl font-bold"
-                                style="background:var(--accent); color:var(--accent-ink);">+ إضافة منتج</button>
+                <!-- REFERRALS -->
+                <section id="page-referrals" class="tab-panel space-y-5">
+                    <div class="rounded-2xl p-6" style="background:var(--surface); border:1px solid var(--border);">
+                        <h3 class="font-display font-bold text-lg mb-1">عرض دعوة الأصحاب</h3>
+                        <p class="text-sm mb-4" style="color:var(--text-muted);">اختر العضو الحالي (الداعي) والصديق
+                            الجديد أو الحالي (المدعو) لتفعيل العرض دفعة واحدة.</p>
+                        <div class="grid md:grid-cols-3 gap-3 items-end">
+                            <div>
+                                <label class="text-xs font-bold block mb-1">الداعي (عضو حالي)</label>
+                                <select id="refReferrer" class="w-full rounded-xl px-3 py-2.5"></select>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold block mb-1">المدعو (صديقه)</label>
+                                <select id="refReferred" class="w-full rounded-xl px-3 py-2.5"></select>
+                            </div>
+                            <button onclick="activateReferral()" class="rounded-xl px-4 py-2.5 font-bold"
+                                style="background:var(--teal); color:#fff;">تفعيل العرض</button>
                         </div>
-                        <div id="productsGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
+                        <div id="referralOfferText" class="mt-4 text-sm rounded-xl p-3"
+                            style="background:var(--surface-2); color:var(--text-muted);"></div>
                     </div>
-                    <div class="rounded-2xl p-5 h-fit sticky top-24"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <h3 class="font-display font-bold text-lg mb-3">فاتورة البيع</h3>
-                        <select id="cartMember" class="w-full rounded-xl px-3 py-2 mb-3 text-sm">
-                            <option value="">بدون ربط بعضو (عميل مباشر)</option>
-                        </select>
-                        <div id="cartItems" class="space-y-2 text-sm mb-3 max-h-64 overflow-y-auto"></div>
-                        <select id="cartPayMethod" class="w-full rounded-xl px-3 py-2 mb-3 text-sm">
-                            <option value="cash">دفع نقدي</option>
-                            <option value="card">دفع بالبطاقة</option>
-                        </select>
-                        <div class="border-t pt-3 flex items-center justify-between font-display font-bold text-lg"
-                            style="border-color:var(--border);">
-                            <span>الإجمالي</span><span id="cartTotal">0 ج.م</span>
-                        </div>
-                        <button onclick="checkout()" class="w-full mt-4 py-3 rounded-xl font-bold"
-                            style="background:var(--teal); color:#fff;">إتمام البيع</button>
-                    </div>
-                </div>
-            </section>
 
-            <!-- EMPLOYEES & SHIFTS -->
-            <section id="page-employees" class="tab-panel space-y-5">
-                <div class="grid lg:grid-cols-3 gap-5">
-                    <div class="lg:col-span-2 space-y-4">
-                        <div class="flex items-center justify-between">
-                            <h3 class="font-display font-bold text-lg">قائمة الموظفين</h3>
-                            <button onclick="openEmployeeModal()" class="px-4 py-2 rounded-xl font-bold text-sm"
-                                style="background:var(--accent); color:var(--accent-ink);">+ إضافة موظف</button>
+                    <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                        <h3 class="font-display font-bold text-lg mb-3">سجل عروض الأصحاب</h3>
+                        <div id="referralsLog" class="space-y-2 text-sm"></div>
+                    </div>
+                </section>
+
+                <!-- STORE -->
+                <section id="page-store" class="tab-panel">
+                    <div class="grid lg:grid-cols-3 gap-5">
+                        <div class="lg:col-span-2 space-y-4">
+                            <div class="flex flex-wrap items-center gap-3 justify-between">
+                                <input id="productSearch" placeholder="ابحث عن منتج أو مكمل غذائي..."
+                                    class="rounded-xl px-4 py-2.5 w-64 max-w-full">
+                                <button onclick="openProductModal()" class="px-5 py-2.5 rounded-xl font-bold"
+                                    style="background:var(--accent); color:var(--accent-ink);">+ إضافة منتج</button>
+                            </div>
+                            <div id="productsGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
                         </div>
-                        <div class="rounded-2xl overflow-hidden"
+                        <div class="rounded-2xl p-5 h-fit sticky top-24"
                             style="background:var(--surface); border:1px solid var(--border);">
+                            <h3 class="font-display font-bold text-lg mb-3">فاتورة البيع</h3>
+                            <select id="cartMember" class="w-full rounded-xl px-3 py-2 mb-3 text-sm">
+                                <option value="">بدون ربط بعضو (عميل مباشر)</option>
+                            </select>
+                            <div id="cartItems" class="space-y-2 text-sm mb-3 max-h-64 overflow-y-auto"></div>
+                            <select id="cartPayMethod" class="w-full rounded-xl px-3 py-2 mb-3 text-sm">
+                                <option value="cash">دفع نقدي</option>
+                                <option value="card">دفع بالبطاقة</option>
+                            </select>
+                            <div class="border-t pt-3 flex items-center justify-between font-display font-bold text-lg"
+                                style="border-color:var(--border);">
+                                <span>الإجمالي</span><span id="cartTotal">0 ج.م</span>
+                            </div>
+                            <button onclick="checkout()" class="w-full mt-4 py-3 rounded-xl font-bold"
+                                style="background:var(--teal); color:#fff;">إتمام البيع</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- EMPLOYEES & SHIFTS -->
+                <section id="page-employees" class="tab-panel space-y-5">
+                    <div class="grid lg:grid-cols-3 gap-5">
+                        <div class="lg:col-span-2 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-display font-bold text-lg">قائمة الموظفين</h3>
+                                <button onclick="openEmployeeModal()" class="px-4 py-2 rounded-xl font-bold text-sm"
+                                    style="background:var(--accent); color:var(--accent-ink);">+ إضافة موظف</button>
+                            </div>
+                            <div class="rounded-2xl overflow-hidden"
+                                style="background:var(--surface); border:1px solid var(--border);">
+                                <table class="w-full text-sm">
+                                    <thead>
+                                        <tr style="background:var(--surface-2); color:var(--text-muted);">
+                                            <th class="text-right py-3 px-4 font-bold">الموظف</th>
+                                            <th class="text-right py-3 px-4 font-bold">الوظيفة</th>
+                                            <th class="text-right py-3 px-4 font-bold">الراتب</th>
+                                            <th class="text-right py-3 px-4 font-bold">الحالة</th>
+                                            <th class="text-right py-3 px-4 font-bold">إجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="employeesTable"></tbody>
+                                </table>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2">
+                                <h3 class="font-display font-bold text-lg">جدول الشيفتات</h3>
+                                <button onclick="openShiftTemplateModal()"
+                                    class="px-4 py-2 rounded-xl font-bold text-sm"
+                                    style="background:var(--surface-2); border:1px solid var(--border);">+ إضافة
+                                    شيفت</button>
+                            </div>
+                            <div id="shiftTemplatesGrid" class="grid sm:grid-cols-2 gap-3"></div>
+                        </div>
+
+                        <div class="rounded-2xl p-5 h-fit"
+                            style="background:var(--surface); border:1px solid var(--border);">
+                            <h3 class="font-display font-bold text-lg mb-3">جدولة اليوم</h3>
+                            <p class="text-xs mb-3" style="color:var(--text-muted);">حدد الموظف والشيفت لهذا اليوم.</p>
+                            <div class="space-y-3">
+                                <select id="scheduleEmployee" class="w-full rounded-xl px-3 py-2.5"></select>
+                                <select id="scheduleShift" class="w-full rounded-xl px-3 py-2.5"></select>
+                                <button onclick="addSchedule()" class="w-full py-2.5 rounded-xl font-bold"
+                                    style="background:var(--teal); color:#fff;">إضافة للجدول</button>
+                            </div>
+                            <div id="todaySchedule" class="mt-4 space-y-2 text-sm"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CASHIER -->
+                <section id="page-cashier" class="tab-panel space-y-5">
+                    <div id="cashierOpenState"></div>
+
+                    <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                        <h3 class="font-display font-bold text-lg mb-3">سجل الشيفتات وتسليم العهدة</h3>
+                        <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
                                     <tr style="background:var(--surface-2); color:var(--text-muted);">
                                         <th class="text-right py-3 px-4 font-bold">الموظف</th>
-                                        <th class="text-right py-3 px-4 font-bold">الوظيفة</th>
-                                        <th class="text-right py-3 px-4 font-bold">الراتب</th>
-                                        <th class="text-right py-3 px-4 font-bold">الصلاحيات</th>
-                                        <th class="text-right py-3 px-4 font-bold">الحالة</th>
-                                        <th class="text-right py-3 px-4 font-bold">إجراءات</th>
+                                        <th class="text-right py-3 px-4 font-bold">التاريخ</th>
+                                        <th class="text-right py-3 px-4 font-bold">فتح بـ</th>
+                                        <th class="text-right py-3 px-4 font-bold">نقدي مُستلم</th>
+                                        <th class="text-right py-3 px-4 font-bold">الإغلاق</th>
+                                        <th class="text-right py-3 px-4 font-bold">الفرق</th>
                                     </tr>
                                 </thead>
-                                <tbody id="employeesTable"></tbody>
+                                <tbody id="shiftLogTable"></tbody>
                             </table>
                         </div>
+                    </div>
+                </section>
 
-                        <div class="flex items-center justify-between pt-2">
-                            <h3 class="font-display font-bold text-lg">جدول الشيفتات</h3>
-                            <button onclick="openShiftTemplateModal()" class="px-4 py-2 rounded-xl font-bold text-sm"
-                                style="background:var(--surface-2); border:1px solid var(--border);">+ إضافة
-                                شيفت</button>
+                <!-- REPORTS -->
+                <section id="page-reports" class="tab-panel space-y-5">
+                    <div class="flex flex-wrap gap-2" id="reportTabs">
+                        <button data-range="day" class="reportTab px-4 py-2 rounded-xl font-bold text-sm">اليوم</button>
+                        <button data-range="week"
+                            class="reportTab px-4 py-2 rounded-xl font-bold text-sm">الأسبوع</button>
+                        <button data-range="month"
+                            class="reportTab px-4 py-2 rounded-xl font-bold text-sm">الشهر</button>
+                        <button data-range="year"
+                            class="reportTab px-4 py-2 rounded-xl font-bold text-sm">السنة</button>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <div class="text-xs font-bold" style="color:var(--text-muted);">إجمالي الإيرادات</div>
+                            <div id="repTotal" class="font-display text-2xl font-black mt-2"
+                                style="color:var(--accent);">0</div>
                         </div>
-                        <div id="shiftTemplatesGrid" class="grid sm:grid-cols-2 gap-3"></div>
-                    </div>
-
-                    <div class="rounded-2xl p-5 h-fit"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <h3 class="font-display font-bold text-lg mb-3">جدولة اليوم</h3>
-                        <p class="text-xs mb-3" style="color:var(--text-muted);">حدد الموظف والشيفت لهذا اليوم.</p>
-                        <div class="space-y-3">
-                            <select id="scheduleEmployee" class="w-full rounded-xl px-3 py-2.5"></select>
-                            <select id="scheduleShift" class="w-full rounded-xl px-3 py-2.5"></select>
-                            <button onclick="addSchedule()" class="w-full py-2.5 rounded-xl font-bold"
-                                style="background:var(--teal); color:#fff;">إضافة للجدول</button>
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <div class="text-xs font-bold" style="color:var(--text-muted);">إيرادات الاشتراكات</div>
+                            <div id="repPlans" class="font-display text-2xl font-black mt-2">0</div>
                         </div>
-                        <div id="todaySchedule" class="mt-4 space-y-2 text-sm"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CASHIER -->
-            <section id="page-cashier" class="tab-panel space-y-5">
-                <div id="cashierOpenState"></div>
-
-                <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
-                    <h3 class="font-display font-bold text-lg mb-3">سجل الشيفتات وتسليم العهدة</h3>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm">
-                            <thead>
-                                <tr style="background:var(--surface-2); color:var(--text-muted);">
-                                    <th class="text-right py-3 px-4 font-bold">الموظف</th>
-                                    <th class="text-right py-3 px-4 font-bold">التاريخ</th>
-                                    <th class="text-right py-3 px-4 font-bold">فتح بـ</th>
-                                    <th class="text-right py-3 px-4 font-bold">نقدي مُستلم</th>
-                                    <th class="text-right py-3 px-4 font-bold">الإغلاق</th>
-                                    <th class="text-right py-3 px-4 font-bold">الفرق</th>
-                                </tr>
-                            </thead>
-                            <tbody id="shiftLogTable"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- REPORTS -->
-            <section id="page-reports" class="tab-panel space-y-5">
-                <div class="flex flex-wrap gap-2" id="reportTabs">
-                    <button data-range="day" class="reportTab px-4 py-2 rounded-xl font-bold text-sm">اليوم</button>
-                    <button data-range="week" class="reportTab px-4 py-2 rounded-xl font-bold text-sm">الأسبوع</button>
-                    <button data-range="month" class="reportTab px-4 py-2 rounded-xl font-bold text-sm">الشهر</button>
-                    <button data-range="year" class="reportTab px-4 py-2 rounded-xl font-bold text-sm">السنة</button>
-                </div>
-
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="card-hover rounded-2xl p-5"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <div class="text-xs font-bold" style="color:var(--text-muted);">إجمالي الإيرادات</div>
-                        <div id="repTotal" class="font-display text-2xl font-black mt-2" style="color:var(--accent);">0
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <div class="text-xs font-bold" style="color:var(--text-muted);">إيرادات المتجر</div>
+                            <div id="repStore" class="font-display text-2xl font-black mt-2">0</div>
+                        </div>
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <div class="text-xs font-bold" style="color:var(--text-muted);">عدد العمليات</div>
+                            <div id="repCount" class="font-display text-2xl font-black mt-2">0</div>
                         </div>
                     </div>
-                    <div class="card-hover rounded-2xl p-5"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <div class="text-xs font-bold" style="color:var(--text-muted);">إيرادات الاشتراكات</div>
-                        <div id="repPlans" class="font-display text-2xl font-black mt-2">0</div>
-                    </div>
-                    <div class="card-hover rounded-2xl p-5"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <div class="text-xs font-bold" style="color:var(--text-muted);">إيرادات المتجر</div>
-                        <div id="repStore" class="font-display text-2xl font-black mt-2">0</div>
-                    </div>
-                    <div class="card-hover rounded-2xl p-5"
-                        style="background:var(--surface); border:1px solid var(--border);">
-                        <div class="text-xs font-bold" style="color:var(--text-muted);">عدد العمليات</div>
-                        <div id="repCount" class="font-display text-2xl font-black mt-2">0</div>
-                    </div>
-                </div>
 
-                <div class="grid md:grid-cols-2 gap-5">
-                    <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
-                        <h3 class="font-display font-bold text-lg mb-3">طريقة الدفع</h3>
-                        <div class="flex items-center justify-between py-2 border-t"
-                            style="border-color:var(--border);">
-                            <span>نقدي</span><span id="repCash" class="font-bold" style="color:var(--teal);">0</span>
-                        </div>
-                        <div class="flex items-center justify-between py-2 border-t"
-                            style="border-color:var(--border);">
-                            <span>بطاقة</span><span id="repCard" class="font-bold">0</span>
-                        </div>
-                    </div>
-                    <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
-                        <h3 class="font-display font-bold text-lg mb-3">آخر العمليات في الفترة</h3>
-                        <div id="repList" class="space-y-2 text-sm max-h-48 overflow-y-auto"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SETTINGS -->
-            <section id="page-settings" class="tab-panel space-y-5">
-                <div class="rounded-2xl p-6 grid md:grid-cols-2 gap-6"
-                    style="background:var(--surface); border:1px solid var(--border);">
-                    <div>
-                        <h3 class="font-display font-bold text-lg mb-3">أسعار الخطط (ج.م)</h3>
-                        <div id="settingsPlans" class="space-y-2"></div>
-                    </div>
-                    <div>
-                        <h3 class="font-display font-bold text-lg mb-3">إعدادات عرض الأصحاب</h3>
-                        <div class="space-y-3">
-                            <div>
-                                <label class="text-xs font-bold block mb-1">خصم للمدعو (%)</label>
-                                <input id="setRefDiscount" type="number" class="w-full rounded-xl px-3 py-2">
+                    <div class="grid md:grid-cols-2 gap-5">
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <h3 class="font-display font-bold text-lg mb-3">طريقة الدفع</h3>
+                            <div class="flex items-center justify-between py-2 border-t"
+                                style="border-color:var(--border);">
+                                <span>نقدي</span><span id="repCash" class="font-bold"
+                                    style="color:var(--teal);">0</span>
                             </div>
-                            <div>
-                                <label class="text-xs font-bold block mb-1">أيام إضافية للداعي</label>
-                                <input id="setRefDays" type="number" class="w-full rounded-xl px-3 py-2">
+                            <div class="flex items-center justify-between py-2 border-t"
+                                style="border-color:var(--border);">
+                                <span>بطاقة</span><span id="repCard" class="font-bold">0</span>
                             </div>
-                            <div>
-                                <label class="text-xs font-bold block mb-1">حصص إضافية للداعي (خطة الحصة)</label>
-                                <input id="setRefSessions" type="number" class="w-full rounded-xl px-3 py-2">
-                            </div>
-                            <button onclick="saveSettings()" class="w-full py-2.5 rounded-xl font-bold"
-                                style="background:var(--accent); color:var(--accent-ink);">حفظ الإعدادات</button>
+                        </div>
+                        <div class="rounded-2xl p-5" style="background:var(--surface); border:1px solid var(--border);">
+                            <h3 class="font-display font-bold text-lg mb-3">آخر العمليات في الفترة</h3>
+                            <div id="repList" class="space-y-2 text-sm max-h-48 overflow-y-auto"></div>
                         </div>
                     </div>
-                </div>
-                <div class="rounded-2xl p-6" style="background:var(--surface); border:1px solid var(--border);">
-                    <h3 class="font-display font-bold text-lg mb-3">النسخ الاحتياطي</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <button onclick="exportData()" class="px-5 py-2.5 rounded-xl font-bold"
-                            style="background:var(--surface-2); border:1px solid var(--border);">تنزيل نسخة احتياطية
-                            (JSON)</button>
-                        <label class="px-5 py-2.5 rounded-xl font-bold cursor-pointer"
-                            style="background:var(--surface-2); border:1px solid var(--border);">
-                            استيراد نسخة احتياطية
-                            <input type="file" id="importFile" accept="application/json" class="hidden">
-                        </label>
-                        <button onclick="resetAllData()" class="px-5 py-2.5 rounded-xl font-bold"
-                            style="background:var(--danger-soft); color:var(--danger);">تصفير كل البيانات</button>
-                    </div>
-                </div>
-            </section>
+                </section>
 
-        </main>
+                <!-- SETTINGS -->
+                <section id="page-settings" class="tab-panel space-y-5">
+                    <div class="rounded-2xl p-6 grid md:grid-cols-2 gap-6"
+                        style="background:var(--surface); border:1px solid var(--border);">
+                        <div>
+                            <h3 class="font-display font-bold text-lg mb-3">أسعار الخطط (ج.م)</h3>
+                            <div id="settingsPlans" class="space-y-2"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-display font-bold text-lg mb-3">إعدادات عرض الأصحاب</h3>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="text-xs font-bold block mb-1">خصم للمدعو (%)</label>
+                                    <input id="setRefDiscount" type="number" class="w-full rounded-xl px-3 py-2">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold block mb-1">أيام إضافية للداعي</label>
+                                    <input id="setRefDays" type="number" class="w-full rounded-xl px-3 py-2">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold block mb-1">حصص إضافية للداعي (خطة الحصة)</label>
+                                    <input id="setRefSessions" type="number" class="w-full rounded-xl px-3 py-2">
+                                </div>
+                                <button onclick="saveSettings()" class="w-full py-2.5 rounded-xl font-bold"
+                                    style="background:var(--accent); color:var(--accent-ink);">حفظ الإعدادات</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl p-6" style="background:var(--surface); border:1px solid var(--border);">
+                        <h3 class="font-display font-bold text-lg mb-3">النسخ الاحتياطي</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="exportData()" class="px-5 py-2.5 rounded-xl font-bold"
+                                style="background:var(--surface-2); border:1px solid var(--border);">تنزيل نسخة احتياطية
+                                (JSON)</button>
+                            <label class="px-5 py-2.5 rounded-xl font-bold cursor-pointer"
+                                style="background:var(--surface-2); border:1px solid var(--border);">
+                                استيراد نسخة احتياطية
+                                <input type="file" id="importFile" accept="application/json" class="hidden">
+                            </label>
+                            <button onclick="resetAllData()" class="px-5 py-2.5 rounded-xl font-bold"
+                                style="background:var(--danger-soft); color:var(--danger);">تصفير كل البيانات</button>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
     </div>
 
     <!-- Member Modal -->
@@ -829,8 +773,7 @@
     <!-- Employee Modal -->
     <div id="employeeModal" class="fixed inset-0 z-40 hidden items-center justify-center p-4"
         style="background:rgba(0,0,0,.5);">
-        <div class="pop w-full max-w-lg rounded-2xl p-6 max-h-[90vh] overflow-y-auto"
-            style="background:var(--surface);">
+        <div class="pop w-full max-w-md rounded-2xl p-6" style="background:var(--surface);">
             <h3 id="employeeModalTitle" class="font-display font-bold text-xl mb-4">إضافة موظف</h3>
             <input type="hidden" id="employeeId">
             <div class="space-y-3">
@@ -838,29 +781,19 @@
                         class="w-full rounded-xl px-3 py-2.5"></div>
                 <div class="grid grid-cols-2 gap-3">
                     <div><label class="text-xs font-bold block mb-1">الوظيفة</label>
-                        <select id="eRole" onchange="applyRoleDefaults()" class="w-full rounded-xl px-3 py-2.5">
+                        <select id="eRole" class="w-full rounded-xl px-3 py-2.5">
                             <option value="مدرب">مدرب</option>
                             <option value="استقبال">موظف استقبال</option>
                             <option value="كاشير">كاشير</option>
-                            <option value="إداري">إداري (كل الصلاحيات)</option>
+                            <option value="إداري">إداري</option>
                             <option value="نظافة">نظافة وصيانة</option>
                         </select>
                     </div>
                     <div><label class="text-xs font-bold block mb-1">رقم الهاتف</label><input id="ePhone"
                             class="w-full rounded-xl px-3 py-2.5"></div>
                 </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div><label class="text-xs font-bold block mb-1">الراتب الشهري (ج.م)</label><input id="eSalary"
-                            type="number" class="w-full rounded-xl px-3 py-2.5"></div>
-                    <div><label class="text-xs font-bold block mb-1">رقم سري لتسجيل الدخول (اختياري)</label><input
-                            id="ePin" maxlength="6" placeholder="بدون رقم = دخول مباشر"
-                            class="w-full rounded-xl px-3 py-2.5"></div>
-                </div>
-                <div>
-                    <label class="text-xs font-bold block mb-2">الصلاحيات (يمكن اختيار أكثر من صلاحية للموظف
-                        نفسه)</label>
-                    <div id="ePermissions" class="grid grid-cols-2 gap-2 text-sm"></div>
-                </div>
+                <div><label class="text-xs font-bold block mb-1">الراتب الشهري (ج.م)</label><input id="eSalary"
+                        type="number" class="w-full rounded-xl px-3 py-2.5"></div>
             </div>
             <div class="flex gap-3 mt-5">
                 <button onclick="saveEmployee()" class="flex-1 py-2.5 rounded-xl font-bold"
@@ -920,96 +853,15 @@
         </div>
     </div>
 
-    <!-- Close Shift Modal -->
-    <div id="closeShiftModal" class="fixed inset-0 z-40 hidden items-center justify-center p-4"
-        style="background:rgba(0,0,0,.5);">
-        <div class="pop w-full max-w-sm rounded-2xl p-6" style="background:var(--surface);">
-            <h3 class="font-display font-bold text-xl mb-2">إغلاق الشيفت</h3>
-            <p id="closeShiftExpected" class="text-sm mb-4" style="color:var(--text-muted);"></p>
-            <label class="text-xs font-bold block mb-1">إجمالي النقدية الفعلي بالخزينة</label>
-            <input id="closeShiftAmount" type="number" class="w-full rounded-xl px-3 py-2.5">
-            <div class="flex gap-3 mt-5">
-                <button onclick="confirmCloseShift()" class="flex-1 py-2.5 rounded-xl font-bold"
-                    style="background:var(--danger); color:#fff;">تأكيد الإغلاق</button>
-                <button onclick="closeModal('closeShiftModal')" class="px-5 py-2.5 rounded-xl font-bold"
-                    style="background:var(--surface-2); border:1px solid var(--border);">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- PIN Modal -->
-    <div id="pinModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4"
-        style="background:rgba(0,0,0,.6);">
-        <div class="pop w-full max-w-xs rounded-2xl p-6 text-center" style="background:var(--surface);">
-            <h3 class="font-display font-bold text-lg mb-3">أدخل الرقم السري</h3>
-            <input id="pinInput" type="password" maxlength="6"
-                class="w-full text-center text-2xl tracking-widest rounded-xl px-3 py-3 font-mono"
-                onkeydown="if(event.key==='Enter')confirmPin()">
-            <div class="flex gap-3 mt-5">
-                <button onclick="confirmPin()" class="flex-1 py-2.5 rounded-xl font-bold"
-                    style="background:var(--accent); color:var(--accent-ink);">دخول</button>
-                <button onclick="closeModal('pinModal')" class="px-5 py-2.5 rounded-xl font-bold"
-                    style="background:var(--surface-2); border:1px solid var(--border);">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Generic Confirm Modal -->
-    <div id="confirmModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4"
-        style="background:rgba(0,0,0,.6);">
-        <div class="pop w-full max-w-sm rounded-2xl p-6 text-center" style="background:var(--surface);">
-            <div class="w-12 h-12 mx-auto rounded-full flex items-center justify-center mb-3"
-                style="background:var(--danger-soft);">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2">
-                    <path d="M12 9v4M12 17h.01" />
-                    <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z" />
-                </svg>
-            </div>
-            <div id="confirmMessage" class="font-bold mb-5"></div>
-            <div class="flex gap-3">
-                <button id="confirmYesBtn" class="flex-1 py-2.5 rounded-xl font-bold"
-                    style="background:var(--danger); color:#fff;">تأكيد</button>
-                <button onclick="closeModal('confirmModal')" class="px-5 py-2.5 rounded-xl font-bold"
-                    style="background:var(--surface-2); border:1px solid var(--border);">إلغاء</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Container -->
-    <div id="toastContainer" class="fixed top-4 left-1/2 -translate-x-1/2 z-[70] flex flex-col gap-2 items-center">
-    </div>
-
     <script>
-        /* ---------------- CONSTANTS ---------------- */
+        /* ---------------- STATE ---------------- */
         const PLAN_LABELS = { session: 'حصة', week: 'أسبوعي', month: 'شهري', q3: '3 شهور', h6: '6 شهور', year: 'سنوي' };
         const PLAN_DAYS = { week: 7, month: 30, q3: 90, h6: 180, year: 365 };
-        const PAGE_TITLES = { dashboard: ['لوحة التحكم', ''], attendance: ['تسجيل الحضور', 'امسح الكارت أو أدخل الكود'], members: ['الأعضاء', 'إدارة بيانات الأعضاء'], plans: ['الاشتراكات والخطط', 'حصة · أسبوع · شهر · 3 شهور · 6 شهور · سنة'], referrals: ['عروض الأصحاب', 'خصومات ومكافآت الدعوة'], store: ['المتجر والمكملات', 'بيع المنتجات الرياضية والمكملات'], employees: ['الموظفين والشيفتات', 'إدارة فريق العمل وجدول الشيفتات'], cashier: ['الخزينة واستلام النقدية', 'فتح وإغلاق الشيفت وتسجيل النقدية'], reports: ['التقارير المالية', 'حسابات اليوم والأسبوع والشهر والسنة'], settings: ['الإعدادات', ''] };
-        const PERMISSION_LABELS = { dashboard: 'لوحة التحكم', attendance: 'تسجيل الحضور', members: 'الأعضاء', plans: 'الاشتراكات والخطط', referrals: 'عروض الأصحاب', store: 'المتجر', employees: 'الموظفين والشيفتات', cashier: 'الخزينة', reports: 'التقارير المالية', settings: 'الإعدادات' };
-        const ROLE_DEFAULT_PERMS = {
-            'مدرب': ['dashboard', 'attendance'],
-            'استقبال': ['dashboard', 'attendance', 'members', 'plans', 'referrals', 'cashier'],
-            'كاشير': ['dashboard', 'attendance', 'store', 'cashier'],
-            'إداري': Object.keys(PERMISSION_LABELS),
-            'نظافة': ['dashboard']
-        };
-        const NAV_GROUPS = [
-            { label: 'الرئيسية', direct: true, items: ['dashboard', 'attendance'] },
-            { label: 'الأعضاء', items: ['members', 'plans', 'referrals'] },
-            { label: 'المتجر', items: ['store'] },
-            { label: 'الإدارة', items: ['employees', 'cashier', 'reports', 'settings'] }
-        ];
-
         const todayStr = () => new Date().toISOString().slice(0, 10);
         const genBarcode = () => 'GYM' + Math.floor(100000000 + Math.random() * 899999999);
-        let currentUser = null;
-        let currentPage = 'dashboard';
-        let pendingLoginEmployee = null;
-        let pendingConfirmCallback = null;
 
         let state = load();
-        migrateState();
 
-        /* ---------------- STATE ---------------- */
         function defaultState() {
             return {
                 theme: 'dark',
@@ -1031,9 +883,8 @@
                 settings: { plans: { session: 100, week: 300, month: 900, q3: 2400, h6: 4300, year: 7800 }, referralDiscount: 15, referralBonusDays: 7, referralBonusSessions: 2 },
                 referrals: [],
                 employees: [
-                    { id: 'e0', name: 'صاحب الجيم', role: 'إداري', phone: '', salary: 0, active: true, pin: '', permissions: ROLE_DEFAULT_PERMS['إداري'] },
-                    { id: 'e1', name: 'محمود جمال', role: 'مدرب', phone: '01234567890', salary: 5000, active: true, pin: '', permissions: ROLE_DEFAULT_PERMS['مدرب'] },
-                    { id: 'e2', name: 'ياسمين طارق', role: 'استقبال', phone: '01098761234', salary: 3500, active: true, pin: '', permissions: ROLE_DEFAULT_PERMS['استقبال'] }
+                    { id: 'e1', name: 'محمود جمال', role: 'مدرب', phone: '01234567890', salary: 5000, active: true },
+                    { id: 'e2', name: 'ياسمين طارق', role: 'استقبال', phone: '01098761234', salary: 3500, active: true }
                 ],
                 shiftTemplates: [
                     { id: 'sh1', name: 'الفترة الصباحية', start: '08:00', end: '16:00' },
@@ -1050,37 +901,9 @@
             return defaultState();
         }
         function save() { localStorage.setItem('gymState', JSON.stringify(state)); }
-        function migrateState() {
-            let changed = false;
-            (state.employees || []).forEach(e => {
-                if (!Array.isArray(e.permissions)) { e.permissions = ROLE_DEFAULT_PERMS[e.role] || ['dashboard']; changed = true; }
-                if (typeof e.pin !== 'string') { e.pin = ''; changed = true; }
-            });
-            if (changed) save();
-        }
         function addDays(dateStr, days) { const d = new Date(dateStr); d.setDate(d.getDate() + days); return d.toISOString().slice(0, 10); }
         function daysBetween(a, b) { return Math.round((new Date(b) - new Date(a)) / 86400000); }
         function fmtMoney(n) { return (n || 0).toLocaleString('ar-EG') + ' ج.م'; }
-
-        /* ---------------- TOAST / CONFIRM (replace native alert/confirm/prompt) ---------------- */
-        function toast(msg, type) {
-            type = type || 'success';
-            const c = document.getElementById('toastContainer');
-            const el = document.createElement('div');
-            el.className = 'toast-item px-5 py-3 rounded-xl font-bold shadow-lg text-sm flex items-center gap-2';
-            el.style.background = type === 'error' ? 'var(--danger)' : type === 'info' ? 'var(--accent)' : 'var(--teal)';
-            el.style.color = '#fff';
-            el.textContent = msg;
-            c.appendChild(el);
-            setTimeout(() => { el.style.opacity = '0'; el.style.transform = 'translateY(-14px)'; setTimeout(() => el.remove(), 320); }, 2600);
-        }
-        function showConfirm(message, onYes) {
-            document.getElementById('confirmMessage').textContent = message;
-            pendingConfirmCallback = onYes;
-            const yesBtn = document.getElementById('confirmYesBtn');
-            yesBtn.onclick = () => { closeModal('confirmModal'); if (pendingConfirmCallback) pendingConfirmCallback(); pendingConfirmCallback = null; };
-            openModal('confirmModal');
-        }
 
         /* ---------------- THEME ---------------- */
         function applyTheme() {
@@ -1094,115 +917,26 @@
             save(); applyTheme();
         };
 
-        /* ---------------- LOGIN ---------------- */
-        function renderLoginScreen() {
-            const active = state.employees.filter(e => e.active);
-            const grid = document.getElementById('loginEmployeesGrid');
-            grid.innerHTML = active.map(e => `
-    <button onclick="attemptLogin('${e.id}')" class="login-card pop rounded-2xl p-5 text-center" style="background:var(--surface); border:1px solid var(--border);">
-      <div class="w-14 h-14 mx-auto rounded-full flex items-center justify-center font-display font-black text-xl mb-2" style="background:var(--accent-soft); color:var(--accent);">${e.name.charAt(0)}</div>
-      <div class="font-bold">${e.name}</div>
-      <div class="text-xs mt-0.5" style="color:var(--text-muted);">${e.role}</div>
-    </button>`).join('');
-            document.getElementById('loginEmptyState').classList.toggle('hidden', active.length > 0);
-        }
-        function attemptLogin(id) {
-            const e = state.employees.find(x => x.id === id);
-            if (e.pin) {
-                pendingLoginEmployee = id;
-                document.getElementById('pinInput').value = '';
-                openModal('pinModal');
-                setTimeout(() => document.getElementById('pinInput').focus(), 120);
-            } else {
-                completeLogin(id);
-            }
-        }
-        function confirmPin() {
-            const e = state.employees.find(x => x.id === pendingLoginEmployee);
-            if (!e) return;
-            if (document.getElementById('pinInput').value === e.pin) {
-                closeModal('pinModal');
-                completeLogin(e.id);
-            } else {
-                toast('الرقم السري غير صحيح', 'error');
-            }
-        }
-        function completeLogin(id) {
-            currentUser = state.employees.find(x => x.id === id);
-            document.getElementById('loginScreen').classList.add('hidden');
-            document.getElementById('appRoot').classList.remove('hidden');
-            document.getElementById('currentUserName').textContent = currentUser.name;
-            document.getElementById('currentUserRole').textContent = currentUser.role;
-            buildTopNav();
-            const perms = currentUser.permissions || [];
-            currentPage = perms.includes('dashboard') ? 'dashboard' : (perms[0] || 'dashboard');
-            goToPage(currentPage);
-            toast('مرحبًا بك، ' + currentUser.name);
-        }
-        function logout() {
-            closeAllDropdowns();
-            currentUser = null;
-            document.getElementById('appRoot').classList.add('hidden');
-            document.getElementById('loginScreen').classList.remove('hidden');
-            renderLoginScreen();
-        }
-
-        /* ---------------- TOP NAV / DROPDOWNS ---------------- */
-        function buildTopNav() {
-            const perms = (currentUser && currentUser.permissions) || [];
-            const nav = document.getElementById('topNav');
-            let html = '';
-            NAV_GROUPS.forEach((g, gi) => {
-                const visibleItems = g.items.filter(p => perms.includes(p));
-                if (visibleItems.length === 0) return;
-                if (g.direct) {
-                    visibleItems.forEach(p => {
-                        html += `<button data-page="${p}" onclick="goToPage('${p}')" class="navlink px-3 py-2 rounded-xl font-bold text-sm">${PAGE_TITLES[p][0]}</button>`;
-                    });
-                } else {
-                    html += `<div class="relative">
-        <button onclick="toggleDropdown('navdrop${gi}')" class="navlink px-3 py-2 rounded-xl font-bold text-sm flex items-center gap-1">
-          ${g.label}
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div id="navdrop${gi}" class="dropdown-menu w-48 rounded-xl p-1.5" style="background:var(--surface); border:1px solid var(--border); box-shadow:0 12px 28px rgba(0,0,0,.18);">
-          ${visibleItems.map(p => `<button data-page="${p}" onclick="goToPage('${p}')" class="w-full text-right px-3 py-2 rounded-lg text-sm font-bold navdropitem" style="background:transparent;">${PAGE_TITLES[p][0]}</button>`).join('')}
-        </div>
-      </div>`;
-                }
+        /* ---------------- NAV ---------------- */
+        const TITLES = { dashboard: ['لوحة التحكم', ''], attendance: ['تسجيل الحضور', 'امسح الكارت أو أدخل الكود'], members: ['الأعضاء', 'إدارة بيانات الأعضاء'], plans: ['الاشتراكات والخطط', 'حصة · أسبوع · شهر · 3 شهور · 6 شهور · سنة'], referrals: ['عروض الأصحاب', 'خصومات ومكافآت الدعوة'], store: ['المتجر والمكملات', 'بيع المنتجات الرياضية والمكملات'], employees: ['الموظفين والشيفتات', 'إدارة فريق العمل وجدول الشيفتات'], cashier: ['الخزينة واستلام النقدية', 'فتح وإغلاق الشيفت وتسجيل النقدية'], reports: ['التقارير المالية', 'حسابات اليوم والأسبوع والشهر والسنة'], settings: ['الإعدادات', ''] };
+        document.querySelectorAll('.navlink').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.navlink').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const page = btn.dataset.page;
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                document.getElementById('page-' + page).classList.add('active');
+                document.getElementById('pageTitle').textContent = TITLES[page][0];
+                document.getElementById('pageSub').textContent = TITLES[page][1];
+                renderAll();
+                if (page === 'attendance') document.getElementById('scanInput').focus();
             });
-            nav.innerHTML = html;
-        }
-        function toggleDropdown(id) {
-            const el = document.getElementById(id);
-            const wasOpen = el.classList.contains('open');
-            closeAllDropdowns();
-            if (!wasOpen) el.classList.add('open');
-        }
-        function closeAllDropdowns() {
-            document.querySelectorAll('.dropdown-menu').forEach(d => d.classList.remove('open'));
-        }
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.dropdown-menu') && !e.target.closest('[onclick^="toggleDropdown"]')) closeAllDropdowns();
         });
-
-        function goToPage(page) {
-            currentPage = page;
-            closeAllDropdowns();
-            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-            document.getElementById('page-' + page).classList.add('active');
-            document.querySelectorAll('.navlink').forEach(b => b.classList.toggle('active', b.dataset.page === page));
-            document.getElementById('pageTitle').textContent = PAGE_TITLES[page][0];
-            document.getElementById('pageSub').textContent = PAGE_TITLES[page][1];
-            renderAll();
-            if (page === 'attendance') { const el = document.getElementById('scanInput'); if (el) el.focus(); }
-        }
 
         /* ---------------- CLOCK ---------------- */
         function tickClock() {
             const now = new Date();
-            const el = document.getElementById('clock');
-            if (el) el.textContent = now.toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' }) + ' · ' + now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('clock').textContent = now.toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' }) + ' · ' + now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
         }
         setInterval(tickClock, 1000 * 15); tickClock();
 
@@ -1253,7 +987,7 @@
         function saveMember() {
             const id = document.getElementById('memberId').value;
             const name = document.getElementById('mName').value.trim();
-            if (!name) { toast('من فضلك أدخل اسم العضو', 'error'); return; }
+            if (!name) { alert('من فضلك أدخل اسم العضو'); return; }
             const data = {
                 name, phone: document.getElementById('mPhone').value.trim(), gender: document.getElementById('mGender').value,
                 barcode: document.getElementById('mBarcode').value.trim() || genBarcode(),
@@ -1262,25 +996,20 @@
             };
             if (id) {
                 Object.assign(state.members.find(m => m.id === id), data);
-                toast('تم تحديث بيانات العضو ✅');
             } else {
                 state.members.push({ id: 'm' + Date.now(), ...data, joinDate: todayStr(), planType: 'session', planStart: null, planEnd: null, sessionsRemaining: 0, discountAvailable: !!data.referredBy });
-                toast('تمت إضافة العضو ✅');
             }
             save(); closeModal('memberModal'); renderAll();
         }
         function deleteMember(id) {
-            const m = state.members.find(x => x.id === id);
-            showConfirm('هل تريد حذف العضو "' + (m ? m.name : '') + '" نهائيًا؟', () => {
-                state.members = state.members.filter(x => x.id !== id);
-                save(); renderAll();
-                toast('تم حذف العضو');
-            });
+            if (!confirm('هل تريد حذف هذا العضو نهائيًا؟')) return;
+            state.members = state.members.filter(m => m.id !== id);
+            save(); renderAll();
         }
         function showCard(id) {
             const m = state.members.find(x => x.id === id);
             document.getElementById('cardName').textContent = m.name;
-            document.getElementById('cardPlan').textContent = 'بيت الحديد · ' + PLAN_LABELS[m.planType] + (m.planEnd ? ' · حتى ' + m.planEnd : '');
+            document.getElementById('cardPlan').textContent = 'جيم الفرسان · ' + PLAN_LABELS[m.planType] + (m.planEnd ? ' · حتى ' + m.planEnd : '');
             document.getElementById('cardCode').textContent = m.barcode;
             JsBarcode('#cardBarcode', m.barcode, { format: 'CODE128', width: 2, height: 60, displayValue: false, background: 'transparent', lineColor: getComputedStyle(document.body).getPropertyValue('--text') });
             openModal('cardModal');
@@ -1358,32 +1087,23 @@
         /* ---------------- PLANS ---------------- */
         function renderPlanPricesGrid() {
             document.getElementById('planPricesGrid').innerHTML = Object.keys(PLAN_LABELS).map(k => `
-    <div class="card-hover rounded-2xl p-4 text-center" style="background:var(--surface); border:1px solid var(--border);">
+    <div class="rounded-2xl p-4 text-center" style="background:var(--surface); border:1px solid var(--border);">
       <div class="text-xs font-bold" style="color:var(--text-muted);">${PLAN_LABELS[k]}</div>
       <div class="font-display text-xl font-black mt-1">${fmtMoney(state.settings.plans[k])}</div>
     </div>`).join('');
         }
         function renderPlansTable() {
-            const q = (document.getElementById('plansSearch').value || '').toLowerCase();
-            const rows = state.members.filter(m => m.name.toLowerCase().includes(q) || m.phone.includes(q) || m.barcode.toLowerCase().includes(q));
-            document.getElementById('plansEmptyState').classList.toggle('hidden', rows.length > 0);
-            document.getElementById('plansTable').innerHTML = rows.map(m => {
+            document.getElementById('plansTable').innerHTML = state.members.map(m => {
                 const st = memberStatus(m);
                 const remain = m.planType === 'session' ? (m.sessionsRemaining + ' حصة متبقية') : (m.planEnd ? m.planEnd + ' (' + daysBetween(todayStr(), m.planEnd) + ' يوم)' : '—');
                 return `<tr class="border-t" style="border-color:var(--border);">
-      <td class="py-3 px-4 font-bold">${m.name}<div class="text-xs font-normal" style="color:var(--text-muted);">${m.phone || ''} · ${m.barcode}</div></td>
+      <td class="py-3 px-4 font-bold">${m.name}</td>
       <td class="py-3 px-4">${PLAN_LABELS[m.planType]} ${statusBadge(st)}</td>
       <td class="py-3 px-4 text-sm" style="color:var(--text-muted);">${remain}</td>
-      <td class="py-3 px-4">
-        <div class="flex gap-2">
-          <button onclick="openPlanModal('${m.id}')" class="text-xs px-3 py-1.5 rounded-lg font-bold" style="background:var(--accent); color:var(--accent-ink);">تجديد الخطة</button>
-          <button onclick="openMemberModal('${m.id}')" class="text-xs px-3 py-1.5 rounded-lg font-bold" style="background:var(--surface-2); border:1px solid var(--border);">تحديث البيانات</button>
-        </div>
-      </td>
+      <td class="py-3 px-4"><button onclick="openPlanModal('${m.id}')" class="text-xs px-3 py-1.5 rounded-lg font-bold" style="background:var(--accent); color:var(--accent-ink);">تجديد الخطة</button></td>
     </tr>`;
             }).join('');
         }
-        document.getElementById('plansSearch').addEventListener('input', renderPlansTable);
         function openPlanModal(id) {
             document.getElementById('planMemberId').value = id;
             const m = state.members.find(x => x.id === id);
@@ -1428,7 +1148,6 @@
             if (discounted) m.discountAvailable = false;
             logTransaction({ type: 'plan', amount: price, method: document.getElementById('planPayMethod').value, memberId: m.id, description: 'اشتراك ' + PLAN_LABELS[type] + ' - ' + m.name });
             save(); closeModal('planModal'); renderAll();
-            toast('تم تجديد الخطة بنجاح ✅');
         }
 
         /* ---------------- REFERRALS ---------------- */
@@ -1441,7 +1160,7 @@
         function activateReferral() {
             const referrerId = document.getElementById('refReferrer').value;
             const referredId = document.getElementById('refReferred').value;
-            if (referrerId === referredId) { toast('لا يمكن اختيار نفس العضو كداعي ومدعو', 'error'); return; }
+            if (referrerId === referredId) { alert('لا يمكن اختيار نفس العضو كداعي ومدعو'); return; }
             const referrer = state.members.find(m => m.id === referrerId);
             const referred = state.members.find(m => m.id === referredId);
             if (referrer.planType === 'session') referrer.sessionsRemaining += state.settings.referralBonusSessions;
@@ -1449,7 +1168,7 @@
             referred.discountAvailable = true;
             state.referrals.push({ date: todayStr(), referrerId, referredId, discount: state.settings.referralDiscount, bonusDays: state.settings.referralBonusDays });
             save(); renderAll();
-            toast('تم تفعيل عرض الأصحاب بنجاح ✅');
+            alert('تم تفعيل عرض الأصحاب بنجاح ✅');
         }
         function renderReferralsLog() {
             const list = state.referrals.slice().reverse();
@@ -1472,14 +1191,13 @@
         }
         function saveProduct() {
             const name = document.getElementById('pName').value.trim();
-            if (!name) { toast('من فضلك أدخل اسم المنتج', 'error'); return; }
+            if (!name) { alert('من فضلك أدخل اسم المنتج'); return; }
             state.products.push({ id: 'p' + Date.now(), name, category: document.getElementById('pCategory').value, price: parseFloat(document.getElementById('pPrice').value) || 0, stock: parseInt(document.getElementById('pStock').value) || 0 });
             save(); closeModal('productModal'); renderAll();
-            toast('تمت إضافة المنتج ✅');
         }
         function addToCart(id) {
             const p = state.products.find(x => x.id === id);
-            if (p.stock <= 0) { toast('الكمية غير متوفرة بالمخزن', 'error'); return; }
+            if (p.stock <= 0) { alert('الكمية غير متوفرة بالمخزن'); return; }
             const line = cart.find(c => c.id === id);
             if (line) line.qty += 1; else cart.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
             renderCart();
@@ -1504,7 +1222,7 @@
             document.getElementById('cartTotal').textContent = fmtMoney(total);
         }
         function checkout() {
-            if (cart.length === 0) { toast('السلة فارغة', 'error'); return; }
+            if (cart.length === 0) { alert('السلة فارغة'); return; }
             const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
             cart.forEach(c => { const p = state.products.find(x => x.id === c.id); p.stock = Math.max(0, p.stock - c.qty); });
             const memberId = document.getElementById('cartMember').value || null;
@@ -1512,12 +1230,12 @@
             logTransaction({ type: 'product', amount: total, method: document.getElementById('cartPayMethod').value, memberId, description: 'بيع منتجات (' + cart.length + ' صنف)' });
             cart = [];
             save(); renderAll();
-            toast('تم إتمام عملية البيع بنجاح ✅');
+            alert('تم إتمام عملية البيع بنجاح ✅');
         }
         function renderStore() {
             const q = (document.getElementById('productSearch').value || '').toLowerCase();
             document.getElementById('productsGrid').innerHTML = state.products.filter(p => p.name.toLowerCase().includes(q)).map(p => `
-    <div class="card-hover rounded-2xl p-4 flex flex-col" style="background:var(--surface); border:1px solid var(--border);">
+    <div class="rounded-2xl p-4 flex flex-col" style="background:var(--surface); border:1px solid var(--border);">
       <div class="text-xs font-bold mb-1" style="color:var(--text-muted);">${p.category}</div>
       <div class="font-bold mb-2">${p.name}</div>
       <div class="flex items-center justify-between mt-auto">
@@ -1547,25 +1265,22 @@
             state.settings.referralBonusDays = parseInt(document.getElementById('setRefDays').value) || 0;
             state.settings.referralBonusSessions = parseInt(document.getElementById('setRefSessions').value) || 0;
             save(); renderAll();
-            toast('تم حفظ الإعدادات ✅');
+            alert('تم حفظ الإعدادات ✅');
         }
         function exportData() {
             const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob); a.download = 'gym-backup-' + todayStr() + '.json'; a.click();
-            toast('تم تنزيل النسخة الاحتياطية ✅');
         }
         document.getElementById('importFile').addEventListener('change', function (e) {
             const file = e.target.files[0]; if (!file) return;
             const reader = new FileReader();
-            reader.onload = () => { try { state = JSON.parse(reader.result); migrateState(); save(); applyTheme(); buildTopNav(); renderAll(); toast('تم استيراد البيانات بنجاح ✅'); } catch (err) { toast('ملف غير صالح', 'error'); } };
+            reader.onload = () => { try { state = JSON.parse(reader.result); save(); applyTheme(); renderAll(); alert('تم استيراد البيانات بنجاح ✅'); } catch (err) { alert('ملف غير صالح'); } };
             reader.readAsText(file);
         });
         function resetAllData() {
-            showConfirm('سيتم حذف كل البيانات نهائيًا. هل أنت متأكد؟', () => {
-                state = defaultState(); save(); applyTheme(); buildTopNav(); logout(); renderAll();
-                toast('تم تصفير كل البيانات');
-            });
+            if (!confirm('سيتم حذف كل البيانات نهائيًا. هل أنت متأكد؟')) return;
+            state = defaultState(); save(); applyTheme(); renderAll();
         }
 
         /* ---------------- TRANSACTIONS ---------------- */
@@ -1579,18 +1294,6 @@
         }
 
         /* ---------------- EMPLOYEES ---------------- */
-        function renderPermissionCheckboxes(selected) {
-            selected = selected || [];
-            document.getElementById('ePermissions').innerHTML = Object.keys(PERMISSION_LABELS).map(k => `
-    <label class="flex items-center gap-2 rounded-lg px-2 py-1.5" style="background:var(--surface-2); border:1px solid var(--border);">
-      <input type="checkbox" class="ePermCheck" value="${k}" ${selected.includes(k) ? 'checked' : ''}>
-      ${PERMISSION_LABELS[k]}
-    </label>`).join('');
-        }
-        function applyRoleDefaults() {
-            const role = document.getElementById('eRole').value;
-            renderPermissionCheckboxes(ROLE_DEFAULT_PERMS[role] || ['dashboard']);
-        }
         function openEmployeeModal(id) {
             document.getElementById('employeeModalTitle').textContent = id ? 'تعديل بيانات الموظف' : 'إضافة موظف';
             document.getElementById('employeeId').value = id || '';
@@ -1600,37 +1303,28 @@
                 document.getElementById('eRole').value = e.role;
                 document.getElementById('ePhone').value = e.phone;
                 document.getElementById('eSalary').value = e.salary;
-                document.getElementById('ePin').value = e.pin || '';
-                renderPermissionCheckboxes(e.permissions);
             } else {
-                ['eName', 'ePhone', 'eSalary', 'ePin'].forEach(f => document.getElementById(f).value = '');
+                ['eName', 'ePhone', 'eSalary'].forEach(f => document.getElementById(f).value = '');
                 document.getElementById('eRole').value = 'مدرب';
-                renderPermissionCheckboxes(ROLE_DEFAULT_PERMS['مدرب']);
             }
             openModal('employeeModal');
         }
         function saveEmployee() {
             const id = document.getElementById('employeeId').value;
             const name = document.getElementById('eName').value.trim();
-            if (!name) { toast('من فضلك أدخل اسم الموظف', 'error'); return; }
-            const permissions = Array.from(document.querySelectorAll('.ePermCheck:checked')).map(c => c.value);
-            if (permissions.length === 0) { toast('اختر صلاحية واحدة على الأقل للموظف', 'error'); return; }
-            const data = { name, role: document.getElementById('eRole').value, phone: document.getElementById('ePhone').value.trim(), salary: parseFloat(document.getElementById('eSalary').value) || 0, pin: document.getElementById('ePin').value.trim(), permissions };
+            if (!name) { alert('من فضلك أدخل اسم الموظف'); return; }
+            const data = { name, role: document.getElementById('eRole').value, phone: document.getElementById('ePhone').value.trim(), salary: parseFloat(document.getElementById('eSalary').value) || 0 };
             if (id) Object.assign(state.employees.find(x => x.id === id), data);
             else state.employees.push({ id: 'e' + Date.now(), ...data, active: true });
             save(); closeModal('employeeModal'); renderAll();
-            toast('تم حفظ بيانات الموظف ✅');
         }
         function toggleEmployeeActive(id) {
             const e = state.employees.find(x => x.id === id); e.active = !e.active; save(); renderAll();
         }
         function deleteEmployee(id) {
-            const e = state.employees.find(x => x.id === id);
-            showConfirm('هل تريد حذف الموظف "' + (e ? e.name : '') + '"؟', () => {
-                state.employees = state.employees.filter(x => x.id !== id);
-                save(); renderAll();
-                toast('تم حذف الموظف');
-            });
+            if (!confirm('هل تريد حذف هذا الموظف؟')) return;
+            state.employees = state.employees.filter(x => x.id !== id);
+            save(); renderAll();
         }
         function renderEmployees() {
             document.getElementById('employeesTable').innerHTML = state.employees.map(e => `
@@ -1638,7 +1332,6 @@
       <td class="py-3 px-4 font-bold">${e.name}<div class="text-xs font-normal" style="color:var(--text-muted);">${e.phone || ''}</div></td>
       <td class="py-3 px-4">${e.role}</td>
       <td class="py-3 px-4">${fmtMoney(e.salary)}</td>
-      <td class="py-3 px-4 text-xs" style="color:var(--text-muted); max-width:180px;">${(e.permissions || []).map(p => PERMISSION_LABELS[p]).join('، ')}</td>
       <td class="py-3 px-4">
         <button onclick="toggleEmployeeActive('${e.id}')" class="px-2.5 py-1 rounded-lg text-xs font-bold" style="background:${e.active ? 'var(--teal-soft)' : 'var(--danger-soft)'}; color:${e.active ? 'var(--teal)' : 'var(--danger)'};">${e.active ? 'يعمل حاليًا' : 'موقوف'}</button>
       </td>
@@ -1648,7 +1341,7 @@
           <button onclick="deleteEmployee('${e.id}')" class="text-xs px-2.5 py-1.5 rounded-lg font-bold" style="background:var(--danger-soft); color:var(--danger);">حذف</button>
         </div>
       </td>
-    </tr>`).join('') || `<tr><td colspan="6" class="text-center py-8" style="color:var(--text-muted);">لا يوجد موظفين بعد</td></tr>`;
+    </tr>`).join('') || `<tr><td colspan="5" class="text-center py-8" style="color:var(--text-muted);">لا يوجد موظفين بعد</td></tr>`;
         }
 
         /* ---------------- SHIFT TEMPLATES & SCHEDULE ---------------- */
@@ -1659,10 +1352,9 @@
         }
         function saveShiftTemplate() {
             const name = document.getElementById('sName').value.trim();
-            if (!name) { toast('من فضلك أدخل اسم الشيفت', 'error'); return; }
+            if (!name) { alert('من فضلك أدخل اسم الشيفت'); return; }
             state.shiftTemplates.push({ id: 'sh' + Date.now(), name, start: document.getElementById('sStart').value, end: document.getElementById('sEnd').value });
             save(); closeModal('shiftTemplateModal'); renderAll();
-            toast('تمت إضافة الشيفت ✅');
         }
         function deleteShiftTemplate(id) {
             state.shiftTemplates = state.shiftTemplates.filter(x => x.id !== id);
@@ -1670,7 +1362,7 @@
         }
         function renderShiftTemplates() {
             document.getElementById('shiftTemplatesGrid').innerHTML = state.shiftTemplates.map(s => `
-    <div class="card-hover rounded-2xl p-4" style="background:var(--surface); border:1px solid var(--border);">
+    <div class="rounded-2xl p-4" style="background:var(--surface); border:1px solid var(--border);">
       <div class="flex items-center justify-between">
         <span class="font-bold">${s.name}</span>
         <button onclick="deleteShiftTemplate('${s.id}')" class="text-xs" style="color:var(--danger);">حذف</button>
@@ -1686,10 +1378,9 @@
         function addSchedule() {
             const employeeId = document.getElementById('scheduleEmployee').value;
             const shiftId = document.getElementById('scheduleShift').value;
-            if (!employeeId || !shiftId) { toast('من فضلك أضف موظفين وشيفتات أولًا', 'error'); return; }
+            if (!employeeId || !shiftId) { alert('من فضلك أضف موظفين وشيفتات أولًا'); return; }
             state.schedule.push({ id: 'sc' + Date.now(), date: todayStr(), employeeId, shiftId });
             save(); renderAll();
-            toast('تمت الإضافة للجدول ✅');
         }
         function removeSchedule(id) {
             state.schedule = state.schedule.filter(x => x.id !== id);
@@ -1714,50 +1405,39 @@
         function openShift() {
             const employeeId = document.getElementById('openShiftEmployee').value;
             const opening = parseFloat(document.getElementById('openShiftAmount').value) || 0;
-            if (!employeeId) { toast('من فضلك اختر الموظف', 'error'); return; }
+            if (!employeeId) { alert('من فضلك اختر الموظف'); return; }
             const log = { id: 'sl' + Date.now(), employeeId, date: todayStr(), openTime: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }), openingCash: opening, status: 'open', closingCash: null, closeTime: null };
             state.shiftLogs.push(log);
             state.currentShiftLogId = log.id;
             save(); renderAll();
-            toast('تم فتح الشيفت ✅');
         }
         function closeShift() {
             const log = state.shiftLogs.find(x => x.id === state.currentShiftLogId);
             if (!log) return;
             const received = cashReceivedForShift(log.id);
             const expected = log.openingCash + received;
-            document.getElementById('closeShiftExpected').textContent = 'المتوقع بالخزينة: ' + fmtMoney(expected);
-            document.getElementById('closeShiftAmount').value = expected;
-            openModal('closeShiftModal');
-        }
-        function confirmCloseShift() {
-            const log = state.shiftLogs.find(x => x.id === state.currentShiftLogId);
-            if (!log) return;
-            const actual = parseFloat(document.getElementById('closeShiftAmount').value);
-            if (isNaN(actual)) { toast('أدخل مبلغًا صحيحًا', 'error'); return; }
+            const actual = parseFloat(prompt('أدخل إجمالي النقدية الفعلي بالخزينة عند الإغلاق:\n(المتوقع: ' + expected + ' ج.م)', expected));
+            if (isNaN(actual)) return;
             log.closingCash = actual;
             log.status = 'closed';
             log.closeTime = new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
             state.currentShiftLogId = null;
-            save(); closeModal('closeShiftModal'); renderAll();
-            toast('تم إغلاق الشيفت ✅');
+            save(); renderAll();
         }
         function openCashReceiptModal() {
-            if (!state.currentShiftLogId) { toast('من فضلك افتح شيفت أولًا لتسجيل النقدية', 'error'); return; }
+            if (!state.currentShiftLogId) { alert('من فضلك افتح شيفت أولًا لتسجيل النقدية'); return; }
             document.getElementById('crAmount').value = ''; document.getElementById('crDesc').value = '';
             document.getElementById('crMember').innerHTML = '<option value="">--</option>' + state.members.map(m => `<option value="${m.id}">${m.name}</option>`).join('');
             openModal('cashReceiptModal');
         }
         function saveCashReceipt() {
             const amount = parseFloat(document.getElementById('crAmount').value) || 0;
-            if (amount <= 0) { toast('أدخل مبلغًا صحيحًا', 'error'); return; }
+            if (amount <= 0) { alert('أدخل مبلغًا صحيحًا'); return; }
             logTransaction({ type: 'other', amount, method: 'cash', memberId: document.getElementById('crMember').value || null, description: document.getElementById('crDesc').value.trim() || 'استلام نقدية' });
             save(); closeModal('cashReceiptModal'); renderAll();
-            toast('تم تسجيل الاستلام ✅');
         }
         function renderShiftBadge() {
             const badge = document.getElementById('shiftBadge');
-            if (!badge) return;
             if (state.currentShiftLogId) {
                 const log = state.shiftLogs.find(x => x.id === state.currentShiftLogId);
                 const e = state.employees.find(x => x.id === log.employeeId);
@@ -1771,7 +1451,6 @@
         function renderCashier() {
             renderShiftBadge();
             const box = document.getElementById('cashierOpenState');
-            if (!box) return;
             if (state.currentShiftLogId) {
                 const log = state.shiftLogs.find(x => x.id === state.currentShiftLogId);
                 const e = state.employees.find(x => x.id === log.employeeId);
@@ -1794,13 +1473,12 @@
       </div>
     </div>`;
             } else {
-                const defaultEmp = state.employees.find(e => e.active && currentUser && e.id === currentUser.id) ? currentUser.id : '';
                 box.innerHTML = `<div class="rounded-2xl p-6" style="background:var(--surface); border:1px solid var(--border);">
       <h3 class="font-display font-bold text-lg mb-3">فتح شيفت جديد</h3>
       <div class="grid sm:grid-cols-3 gap-3 items-end">
         <div>
           <label class="text-xs font-bold block mb-1">الموظف</label>
-          <select id="openShiftEmployee" class="w-full rounded-xl px-3 py-2.5">${state.employees.filter(e => e.active).map(e => `<option value="${e.id}" ${e.id === defaultEmp ? 'selected' : ''}>${e.name}</option>`).join('') || '<option value="">-- أضف موظف أولًا --</option>'}</select>
+          <select id="openShiftEmployee" class="w-full rounded-xl px-3 py-2.5">${state.employees.filter(e => e.active).map(e => `<option value="${e.id}">${e.name}</option>`).join('') || '<option value="">-- أضف موظف أولًا --</option>'}</select>
         </div>
         <div>
           <label class="text-xs font-bold block mb-1">الرصيد الافتتاحي (ج.م)</label>
@@ -1895,23 +1573,26 @@
 
         /* ---------------- RENDER ALL ---------------- */
         function renderAll() {
-            if (!currentUser) return;
-            const perms = currentUser.permissions || [];
-            if (perms.includes('dashboard')) renderDashboard();
-            if (perms.includes('attendance')) renderAttendance();
-            if (perms.includes('members')) renderMembers();
-            if (perms.includes('plans')) { renderPlanPricesGrid(); renderPlansTable(); }
-            if (perms.includes('referrals')) { renderReferralSelects(); renderReferralsLog(); }
-            if (perms.includes('store')) { renderStore(); renderCart(); }
-            if (perms.includes('settings')) renderSettings();
-            if (perms.includes('employees')) { renderEmployees(); renderShiftTemplates(); renderTodaySchedule(); }
-            if (perms.includes('cashier')) { renderCashier(); renderShiftLogTable(); }
-            if (perms.includes('reports')) renderReports();
+            renderDashboard();
+            renderAttendance();
+            renderMembers();
+            renderPlanPricesGrid();
+            renderPlansTable();
+            renderReferralSelects();
+            renderReferralsLog();
+            renderStore();
+            renderCart();
+            renderSettings();
+            renderEmployees();
+            renderShiftTemplates();
+            renderTodaySchedule();
+            renderCashier();
+            renderShiftLogTable();
+            renderReports();
             renderShiftBadge();
         }
-
         applyTheme();
-        renderLoginScreen();
+        renderAll();
     </script>
 </body>
 
