@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gym OS — نظام إدارة الجيم</title>
+  <title>El-Forsan — نظام إدارة الجيم</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -34,7 +34,7 @@
       --surface: #FFFFFF;
       --line: #E3E1DA;
       --muted: #7A7D82;
-      --accent: #FF4B1F;
+      --accent: #fff81f;
       --accent-dim: #FFE3D9;
       --good: #1C8C4E;
       --good-dim: #DCF3E4;
@@ -954,7 +954,7 @@
     ========================================================================= */
     const T = {
       ar: {
-        brand: "Gym OS", tagline: "نظام إدارة الجيم",
+        brand: "El-Forsan", tagline: "نظام إدارة الجيم",
         nav_dashboard: "الرئيسية", nav_members: "الأعضاء", nav_plans: "باقات الاشتراك",
         nav_attendance: "الحضور والانصراف", nav_pos: "نقطة البيع", nav_products: "المنتجات والمخزون",
         nav_trainers: "المدربين", nav_classes: "الحصص", nav_expenses: "المصروفات", nav_reports: "التقارير",
@@ -1031,7 +1031,7 @@
         profile: "الملف الشخصي", days_left: "الأيام المتبقية",
       },
       en: {
-        brand: "Gym OS", tagline: "Gym Management System",
+        brand: "El-Forsan", tagline: "Gym Management System",
         nav_dashboard: "Dashboard", nav_members: "Members", nav_plans: "Plans",
         nav_attendance: "Attendance", nav_pos: "POS", nav_products: "Products & Stock",
         nav_trainers: "Trainers", nav_classes: "Classes", nav_expenses: "Expenses", nav_reports: "Reports",
@@ -1200,10 +1200,10 @@
       ];
       s.orders = [];
       s.users = [
-        { id: uid("usr"), phone: "01000000000", password: "admin123", role: "employee", name: "Admin", job_title: "Manager", is_admin: true, perms: { pos: true, renew: true, inventory: true } },
-        { id: uid("usr"), phone: "01111111111", password: "1234", role: "customer", name: "Omar Hassan", member_id: m1 },
-        { id: uid("usr"), phone: "01222222222", password: "1234", role: "customer", name: "Laila Ahmed", member_id: m2 },
-        { id: uid("usr"), phone: "01333333333", password: "1234", role: "customer", name: "Youssef Adel", member_id: m3 },
+        { id: uid("usr"), phone: "01063942602", password: "123", role: "employee", name: "Admin", job_title: "Manager", is_admin: true, perms: { pos: true, renew: true, inventory: true } },
+        { id: uid("usr"), phone: "01111111111", password: "123", role: "customer", name: "Omar Hassan", member_id: m1 },
+        { id: uid("usr"), phone: "01222222222", password: "123", role: "customer", name: "Laila Ahmed", member_id: m2 },
+        { id: uid("usr"), phone: "01333333333", password: "123", role: "customer", name: "Youssef Adel", member_id: m3 },
       ];
       return s;
     }
