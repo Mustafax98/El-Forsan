@@ -35,7 +35,7 @@
       --line: #E3E1DA;
       --muted: #7A7D82;
       --accent: #fff81f;
-      --accent-dim: #FFE3D9;
+      --accent-dim: #FFF9C2;
       --good: #1C8C4E;
       --good-dim: #DCF3E4;
       --warn: #B9790A;
@@ -833,6 +833,24 @@
       outline-offset: 1px;
     }
 
+    .cal-day.has-workout::after {
+      content: "";
+      position: absolute;
+      bottom: 4px;
+      inset-inline-start: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: currentColor;
+      opacity: .55;
+    }
+
+    .cal-day.selected {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
     .cal-head {
       font-size: 11px;
       color: var(--muted);
@@ -1029,6 +1047,12 @@
         fulfill: "تسليم الطلب", pending_orders: "طلبات المتجر المعلقة", no_orders: "لا توجد طلبات",
         order_number: "رقم الطلب", subscription_status: "حالة الاشتراك", no_subscription: "لا يوجد اشتراك ساري",
         profile: "الملف الشخصي", days_left: "الأيام المتبقية",
+
+        /* --- new: workout quick setup + calendar-workout merge --- */
+        quick_setup: "إعداد سريع لخطة التمرين", num_exercises: "عدد التمارين (الألعاب)", num_sets: "عدد المجموعات (الزوايا)",
+        num_reps: "عدد التكرارات (العدد)", apply_to_day: "طبّق على يوم", apply_to_all: "طبّق على كل الأيام",
+        generate: "توليد الجدول", workout_for_day: "تمرين يوم", no_workout_this_day: "لا يوجد تمرين مسجل لهذا اليوم",
+        select_day_hint: "اضغط على يوم في التقويم لعرض تمرين اليوم",
       },
       en: {
         brand: "El-Forsan", tagline: "Gym Management System",
@@ -1101,6 +1125,11 @@
         fulfill: "Fulfill Order", pending_orders: "Pending Store Orders", no_orders: "No orders",
         order_number: "Order #", subscription_status: "Subscription Status", no_subscription: "No active subscription",
         profile: "Profile", days_left: "Days Left",
+
+        quick_setup: "Quick Workout Setup", num_exercises: "Number of Exercises", num_sets: "Number of Sets",
+        num_reps: "Number of Reps", apply_to_day: "Apply to Day", apply_to_all: "Apply to All Days",
+        generate: "Generate Schedule", workout_for_day: "Workout for", no_workout_this_day: "No workout set for this day",
+        select_day_hint: "Click a day on the calendar to see that day's workout",
       }
     };
     /* =========================================================================
@@ -1389,7 +1418,7 @@
       app.innerHTML = `
     <div class="min-h-screen w-full flex items-center justify-center relative overflow-hidden" style="background:var(--ink)">
       <div class="absolute -top-28 ${currentLang === 'ar' ? '-left-28' : '-right-28'} w-96 h-96 rounded-full animate-pulse-slow" style="background:var(--accent);filter:blur(70px)"></div>
-      <div class="absolute -bottom-24 ${currentLang === 'ar' ? '-right-24' : '-left-24'} w-72 h-72 rounded-full opacity-20" style="background:#ffb088;filter:blur(60px)"></div>
+      <div class="absolute -bottom-24 ${currentLang === 'ar' ? '-right-24' : '-left-24'} w-72 h-72 rounded-full opacity-20" style="background:#ffe066;filter:blur(60px)"></div>
       <div class="relative z-10 w-full max-w-sm mx-4 rounded-2xl p-8 shadow-2xl animate-fade-slide-up" style="background:var(--surface)">
         <div class="flex items-center gap-2 mb-1">
           <span class="w-3 h-3 rounded-full" style="background:var(--accent)"></span>
@@ -2595,7 +2624,7 @@
     window.deleteUser = deleteUser;
 
     /* =========================================================================
-       WORKOUT PLAN editor (staff)
+       WORKOUT PLAN editor (staff) — now with quick-setup generator
     ========================================================================= */
     window._editingWorkout = null;
     function openWorkoutModal(memberId) {
@@ -2603,6 +2632,21 @@
       window._editingWorkout.member_id = memberId;
       openModal(`
     <h3>${t("edit_workout")} — ${getMember(memberId).name}</h3>
+    <div style="border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:14px;background:var(--paper);">
+      <div style="font-weight:800;font-size:13px;margin-bottom:10px;">${t("quick_setup")}</div>
+      <div class="field-row" style="grid-template-columns:1fr 1fr 1fr;">
+        <div class="field" style="margin-bottom:8px;"><label>${t("num_exercises")}</label><input type="number" id="qs_games" min="1" value="3"></div>
+        <div class="field" style="margin-bottom:8px;"><label>${t("num_sets")}</label><input type="number" id="qs_sets" min="1" value="3"></div>
+        <div class="field" style="margin-bottom:8px;"><label>${t("num_reps")}</label><input type="number" id="qs_reps" min="1" value="10"></div>
+      </div>
+      <div class="row" style="gap:8px;">
+        <select id="qs_day" style="flex:1;padding:9px 10px;border:1px solid var(--line);border-radius:6px;">
+          ${WEEK_DAYS.map(d => `<option value="${d}">${t("days")[d]}</option>`).join("")}
+        </select>
+        <button type="button" class="btn small ghost" onclick="quickGenerateWorkout(false)">${t("generate")}</button>
+        <button type="button" class="btn small primary" onclick="quickGenerateWorkout(true)">${t("apply_to_all")}</button>
+      </div>
+    </div>
     <div id="workoutRows">${renderWorkoutRows()}</div>
     <div class="modal-actions">
       <button class="btn ghost" onclick="closeModal()">${t("cancel")}</button>
@@ -2610,6 +2654,20 @@
     </div>
   `, true);
     }
+    function quickGenerateWorkout(applyToAll) {
+      const games = Math.max(1, Number(document.getElementById("qs_games").value) || 1);
+      const sets = Math.max(1, Number(document.getElementById("qs_sets").value) || 1);
+      const reps = Math.max(1, Number(document.getElementById("qs_reps").value) || 1);
+      const targetDays = applyToAll ? WEEK_DAYS : [document.getElementById("qs_day").value];
+      targetDays.forEach(d => {
+        const rows = [];
+        for (let i = 0; i < games; i++) rows.push({ name: "", sets, reps, notes: "" });
+        window._editingWorkout.days[d] = rows;
+      });
+      refreshWorkoutRows();
+      showToast(t("saved"));
+    }
+    window.quickGenerateWorkout = quickGenerateWorkout;
     function renderWorkoutRows() {
       const plan = window._editingWorkout;
       return WEEK_DAYS.map(d => `
@@ -2721,9 +2779,11 @@
 
     /* =========================================================================
        ATTENDANCE CALENDAR (shared by staff modal + member portal)
+       — merged with the workout plan: clicking a day shows that weekday's exercises
     ========================================================================= */
     function buildCalendarHTML(memberId, year, month, clickable) {
       const attSet = new Set(state.attendance.filter(a => a.member_id === memberId).map(a => (a.time || "").slice(0, 10)));
+      const workout = getWorkoutPlan(memberId);
       const first = new Date(year, month, 1);
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       const startWeekday = first.getDay();
@@ -2743,7 +2803,8 @@
         }
         const isToday = dateStr === today ? " today" : "";
         const weekdayKey = dayKeys[(startWeekday + day - 1) % 7];
-        cells += `<div class="cal-day ${cls}${isToday}" data-date="${dateStr}" data-weekday="${weekdayKey}" style="${clickable ? 'cursor:pointer' : ''}" title="${dateStr}">${day}</div>`;
+        const hasWorkout = (workout.days[weekdayKey] || []).length > 0 ? " has-workout" : "";
+        cells += `<div class="cal-day ${cls}${isToday}${hasWorkout}" data-date="${dateStr}" data-weekday="${weekdayKey}" style="cursor:pointer" title="${dateStr}" onclick="selectCalendarDay('${dateStr}','${weekdayKey}')">${day}</div>`;
       }
       const monthLabel = first.toLocaleDateString(currentLang === "ar" ? "ar-EG" : "en-US", { month: "long", year: "numeric" });
       return `
@@ -2761,6 +2822,9 @@
       <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--danger-dim);margin-inline-end:5px;"></span>${t("absent")}</span>
       <span><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:#F0F0EC;margin-inline-end:5px;"></span>${t("na")}</span>
     </div>
+    <div id="calDayWorkout" style="margin-top:14px;border-top:1px solid var(--line);padding-top:12px;">
+      <div style="color:var(--muted);font-size:12.5px;">${t("select_day_hint")}</div>
+    </div>
   `;
     }
     window._calState = { memberId: null, year: null, month: null, containerId: null };
@@ -2773,6 +2837,34 @@
     }
     window.shiftCalendarMonth = shiftCalendarMonth;
 
+    function selectCalendarDay(dateStr, weekday) {
+      const s = window._calState;
+      document.querySelectorAll(`#${s.containerId} .cal-day`).forEach(el => el.classList.remove("selected"));
+      const clickedEl = document.querySelector(`#${s.containerId} .cal-day[data-date="${dateStr}"]`);
+      if (clickedEl) clickedEl.classList.add("selected");
+      const workout = getWorkoutPlan(s.memberId);
+      const exercises = workout.days[weekday] || [];
+      const box = document.getElementById("calDayWorkout");
+      if (!box) return;
+      const dayLabel = t("days")[weekday];
+      if (!exercises.length) {
+        box.innerHTML = `<div style="font-weight:800;font-size:13px;margin-bottom:6px;">${t("workout_for_day")} ${dayLabel}</div><div style="color:var(--muted);font-size:12.5px;">${t("no_workout_this_day")}</div>`;
+        return;
+      }
+      box.innerHTML = `
+    <div style="font-weight:800;font-size:13px;margin-bottom:8px;">${t("workout_for_day")} ${dayLabel} — ${fmtDate(dateStr)}</div>
+    <div class="stack">
+      ${exercises.map(ex => `
+        <div class="row between" style="background:var(--paper);border-radius:7px;padding:8px 10px;">
+          <div style="font-weight:700;font-size:13px;">${ex.name || "—"}</div>
+          <div style="color:var(--muted);font-size:12px;">${ex.sets}×${ex.reps}${ex.notes ? ` · ${ex.notes}` : ''}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+    }
+    window.selectCalendarDay = selectCalendarDay;
+
     function openAttendanceCalendarModal(memberId) {
       const now = new Date();
       window._calState = { memberId, year: now.getFullYear(), month: now.getMonth(), containerId: "calModalBody" };
@@ -2780,7 +2872,7 @@
     <h3>${t("attendance_calendar")} — ${getMember(memberId).name}</h3>
     <div id="calModalBody">${buildCalendarHTML(memberId, now.getFullYear(), now.getMonth())}</div>
     <div class="modal-actions"><button class="btn ghost" onclick="closeModal()">${t("close")}</button></div>
-  `);
+  `, true);
     }
     window.openAttendanceCalendarModal = openAttendanceCalendarModal;
 
