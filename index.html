@@ -9,6 +9,140 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* ===== الوضع الفاتح ===== */
+        html[data-theme="light"] {
+            color-scheme: light;
+        }
+
+        html[data-theme="dark"] {
+            color-scheme: dark;
+        }
+
+        html[data-theme="light"] body {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] :is([class~="bg-black"], [class~="bg-black/60"],
+            [class~="bg-neutral-950"], [class~="bg-neutral-950/70"], [class~="bg-neutral-950/80"],
+            [class~="bg-neutral-900"], [class~="bg-neutral-900/80"], [class~="bg-neutral-900/90"], [class~="bg-neutral-900/40"],
+            [class~="bg-zinc-950"], [class~="bg-zinc-900"],
+            [class~="bg-gray-900"], [class~="bg-gray-900/90"], [class~="bg-gray-900/50"],
+            [class~="bg-slate-900"], [class~="bg-slate-900/80"], [class~="bg-slate-950/60"]) {
+            background-color: #ffffff;
+        }
+
+        html[data-theme="light"] :is([class~="bg-neutral-800"], [class~="bg-neutral-800/80"],
+            [class~="bg-gray-800"], [class~="bg-gray-800/80"], [class~="bg-gray-800/60"],
+            [class~="bg-zinc-800"]) {
+            background-color: #e2e8f0;
+        }
+
+        html[data-theme="light"] :is([class*="border-neutral-"], [class*="border-zinc-"], [class*="border-gray-"], [class*="border-slate-"]):not([class*="hover:"]) {
+            border-color: #cbd5e1;
+        }
+
+        html[data-theme="light"] :is([class*="divide-neutral-"], [class*="divide-gray-"])>* {
+            border-color: #e2e8f0;
+        }
+
+        html[data-theme="light"] .text-white {
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] .hover\:text-white:hover {
+            color: #0f172a;
+        }
+
+        html[data-theme="light"] :is(.text-zinc-200, .text-zinc-300, .text-neutral-200, .text-neutral-300, .text-gray-200, .text-gray-300, .text-slate-300) {
+            color: #334155;
+        }
+
+        html[data-theme="light"] :is(.text-zinc-400, .text-zinc-500, .text-neutral-400, .text-neutral-500, .text-neutral-600, .text-gray-400, .text-slate-400) {
+            color: #64748b;
+        }
+
+        html[data-theme="light"] .text-emerald-400 {
+            color: #059669;
+        }
+
+        html[data-theme="light"] .text-cyan-400 {
+            color: #0891b2;
+        }
+
+        html[data-theme="light"] .text-amber-400 {
+            color: #d97706;
+        }
+
+        html[data-theme="light"] .text-rose-400 {
+            color: #e11d48;
+        }
+
+        html[data-theme="light"] .text-violet-400 {
+            color: #7c3aed;
+        }
+
+        html[data-theme="light"] .text-indigo-400,
+        html[data-theme="light"] .text-indigo-500 {
+            color: #4f46e5;
+        }
+
+        html[data-theme="light"] .text-sky-400 {
+            color: #0284c7;
+        }
+
+        html[data-theme="light"] .bg-white {
+            background-color: #0f172a;
+        }
+
+        html[data-theme="light"] .text-black {
+            color: #ffffff;
+        }
+
+        html[data-theme="light"] .hover\:bg-neutral-200:hover {
+            background-color: #1e293b;
+        }
+
+        html[data-theme="light"] :is(.bg-indigo-600, .bg-emerald-600, .bg-rose-600, [class~="from-emerald-500"]),
+        html[data-theme="light"] :is(.bg-indigo-600, .bg-emerald-600, .bg-rose-600, [class~="from-emerald-500"]) * {
+            color: #ffffff;
+        }
+
+        html[data-theme="light"] header {
+            box-shadow: 0 1px 8px rgba(15, 23, 42, .08);
+        }
+
+        html[data-theme="light"] .bg-black\/80 {
+            background-color: rgba(15, 23, 42, .5);
+        }
+
+        html[data-theme="light"] ::placeholder {
+            color: #94a3b8;
+        }
+
+        body,
+        header,
+        main,
+        div,
+        input,
+        table,
+        th,
+        td,
+        button {
+            transition: background-color .25s, border-color .25s, color .25s;
+        }
+    </style>
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('gym-theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+    <style>
         /* Base font override */
         body {
             font-family: 'Cairo', sans-serif;
@@ -813,6 +947,15 @@
                                     <i class="fa-solid fa-trash-can ml-1"></i> إزالة
                                 </button>
                             </div>
+                        </div>
+
+                        <div class="bg-slate-950/60 p-5 rounded-xl border border-slate-800 shadow-inner space-y-3">
+                            <label class="block text-sm font-bold text-slate-300">مظهر الموقع (الثيم)</label>
+                            <button type="button" onclick="toggleTheme()"
+                                class="px-5 py-3 rounded-xl border border-slate-700 bg-slate-900 text-slate-300 text-sm font-semibold flex items-center gap-2 transition-all">
+                                <i id="themeToggleIcon" class="fa-solid fa-moon"></i>
+                                <span id="themeToggleText">الوضع الداكن</span>
+                            </button>
                         </div>
 
                         <button onclick="saveChangesManually()" id="saveBtn"
