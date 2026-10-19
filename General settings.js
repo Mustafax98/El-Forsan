@@ -169,3 +169,30 @@
   window.stageRemoveLogo = stageRemoveLogo;
   window.saveChangesManually = saveChangesManually;
 })();
+
+
+// ===== تبديل الثيم (داكن / فاتح) =====
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    try { localStorage.setItem('gym-theme', theme); } catch (e) {}
+    updateThemeButtons(theme);
+}
+
+function updateThemeButtons(theme) {
+    const icon = document.getElementById('themeToggleIcon');
+    const text = document.getElementById('themeToggleText');
+    if (icon) icon.className = theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+    if (text) text.textContent = theme === 'dark' ? 'الوضع الداكن (اضغط للفاتح)' : 'الوضع الفاتح (اضغط للداكن)';
+}
+
+function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(cur === 'dark' ? 'light' : 'dark');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateThemeButtons(document.documentElement.getAttribute('data-theme') || 'dark');
+});
+
+window.setTheme = setTheme;
+window.toggleTheme = toggleTheme;
